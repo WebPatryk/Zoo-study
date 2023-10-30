@@ -54,22 +54,33 @@
 
 import { NextIntlClientProvider } from 'next-intl';
 import { notFound } from 'next/navigation';
+import styles from '@/app/components/layout/Layout.module.scss';
+import Navbar from '@/app/components/Navbar/Navbar';
+import Header from '@/app/components/Header/Header';
+import Footer from '@/app/components/Footer/Footer';
 
-import '@/../styles/global.css'
 export default async function LocaleLayout({ children, params: { locale } }) {
   let messages;
   try {
-    messages = (await import(`../messages/${locale}.json`)).default;
+    messages = (await import(`../../messages/${locale}.json`)).default;
   } catch (error) {
     notFound();
   }
 
   return (
-
     <html lang={locale}>
       <body suppressHydrationWarning={true}>
         <NextIntlClientProvider locale={locale} messages={messages}>
-          {children}
+          <div>
+            <Navbar />
+            <div>
+              <Header />
+              <main className={styles.main}>
+                {children}
+                <Footer />
+              </main>
+            </div>
+          </div>
         </NextIntlClientProvider>
       </body>
     </html>

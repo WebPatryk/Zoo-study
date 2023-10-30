@@ -1,0 +1,40 @@
+
+  .eventBox {
+    display: flex;
+    background-color: $fourth-color;
+    margin: 0 1rem 0 0;
+    padding: .5rem;
+    border-radius: 3px;
+
+
+  div{
+    width: 300px;
+    min-width: 300px;
+    flex: 1;
+    margin: 0 2rem;
+  }
+    h4 {
+      margin-top: 0;
+    }
+
+    .info {
+      margin-left: 2rem;
+    }
+
+    p {
+      font-size: .8rem;
+    }
+
+    .title {
+      color: $tertiary-color;
+    }
+
+
+
+    .readMore {
+      text-decoration: underline;
+      padding-left: .6rem;
+      cursor: pointer;
+    }
+
+  }
