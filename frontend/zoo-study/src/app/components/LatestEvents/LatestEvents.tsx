@@ -3,7 +3,10 @@
 import styles from './LatestEvents.module.scss';
 import Link from 'next/link';
 import Event from '@/app/components/Event/Event';
-
+import Calendar from '@/app/assets/icons/calendar.svg';
+import Time from '@/app/assets/icons/time.svg';
+import Paw from '@/app/assets/icons/paw.svg';
+import Image from 'next/image';
 interface EventInterface {
   _id: string;
   title: string;
@@ -28,22 +31,16 @@ const LatestEvents = ({ title }: { title: string }) => {
             </div>
             <img
               src="https://iconutopia.com/wp-content/uploads/2016/06/space-dog-laika1.png"
-              alt=""
+              alt="image"
             />
           </div>
           <div className={styles.information}>
-            <div>
-              <img
-                src="https://iconutopia.com/wp-content/uploads/2016/06/space-dog-laika1.png"
-                alt=""
-              />
+            <div className={styles.informationRow}>
+              <Image src={Calendar} alt="icon" />
               <p>21.04.2021</p>
             </div>
-            <div>
-              <img
-                src="https://iconutopia.com/wp-content/uploads/2016/06/space-dog-laika1.png"
-                alt=""
-              />
+            <div className={styles.informationRow}>
+              <Image src={Time} alt="icon" />
               <p>7am - 15am</p>
             </div>
           </div>
@@ -54,7 +51,7 @@ const LatestEvents = ({ title }: { title: string }) => {
               tenetur veritatis? Amet eius expedita ipsum repellendus saepe
               voluptas, voluptates. Dolores, nam.
             </p>
-            <div>
+            <div className={styles.bottom}>
               <button>Read more</button>
               <p>
                 Status <span>Signed</span>

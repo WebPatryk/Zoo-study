@@ -1,4 +1,4 @@
-'use client'
+'use client';
 
 import type { NextPage } from 'next';
 import styles from './Navbar.module.scss';
@@ -6,7 +6,7 @@ import contactImage from '@/app/assets/images/contact-image.svg';
 import Image from 'next/image';
 import Icon from '@/app/assets/icons/logo.png';
 import Home from '@/app/assets/icons/home.svg';
-import Calendar from '@/app/assets/icons/calendar.svg';
+import CalendarBasic from '@/app/assets/icons/calendar-basic.svg';
 import Paw from '@/app/assets/icons/paw.svg';
 import Chat from '@/app/assets/icons/chat.svg';
 import { FaArrowRight } from 'react-icons/fa';
@@ -23,7 +23,7 @@ interface Navigation {
 
 const navigation = [
   { icon: Home, label: 'Home', href: '' },
-  { icon: Calendar, label: 'Events', href: '/calendar' },
+  { icon: CalendarBasic, label: 'Events', href: '/calendar' },
   { icon: Paw, label: 'Feed animals', href: '/feed-animals' },
   { icon: Chat, label: 'Chat', href: '/chat' }
 ];
@@ -74,8 +74,10 @@ const Navbar: NextPage = () => {
                 // setSelectedTab(item.href);
               }}
             >
-              <Link className={styles.link} href={pathname.substring(0,3) + item.href}>
-
+              <Link
+                className={styles.link}
+                href={pathname.substring(0, 3) + item.href}
+              >
                 <Image src={item.icon} height={30} width={30} alt="icon" />
                 <p>{item.label}</p>
 
