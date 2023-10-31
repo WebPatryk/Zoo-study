@@ -1,9 +1,12 @@
+'use clinet';
+
 // import ActionButton from 'components/Buttons/ActionButton';
 // import { CardHeader } from 'components/Content/Card';
-import React, { MouseEventHandler, useEffect, useState } from 'react';
+import React, { MouseEventHandler, useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import styles from './Modal.module.scss';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
+import { log } from 'console';
 
 interface ModalButtonArgs {
   onClick: () => void;
@@ -88,81 +91,103 @@ export default function Modal({
         initial="hidden"
         animate="visible"
         exit="exit"
+        key="modal"
       >
-        <div>
-          <h2>{title}</h2>
-          {buttons && (
-            <span className={styles.close} onClick={buttons.close?.onClick}>
-              &times;
-            </span>
-          )}
-          <div className={styles.content}>
-            {children}
+        <AnimatePresence mode="wait">
+          <div>
+            <h2>{title}</h2>
+            {buttons && (
+              <span className={styles.close} onClick={buttons.close?.onClick}>
+                &times;
+              </span>
+            )}
+            <div className={styles.content}>
+              {children}
 
-            {/*<div>*/}
-            {/*  <button onClick={() => props.modal.close()}>Cancel</button>*/}
+              {/*<div>*/}
+              {/*  <button onClick={() => props.modal.close()}>Cancel</button>*/}
 
-            {/*  <button onClick={handleSave}>Save</button>*/}
-            {/*</div>*/}
-            <div>
-              {buttons && (
-                <div
-                  style={{
-                    display: 'flex',
-                    justifyContent: 'space-between',
-                    margin: '2rem 0 1rem 0'
-                  }}
-                >
-                  {buttons.close && (
-                    // <ActionButton
-                    //   text={buttons.close.label ?? t('cancel')}
-                    //   icon={buttons.close.icon ?? 'fas fa-chevron-circle-left'}
-                    //   onClick={buttons.close.onClick}
-                    // />
-                    <button
-                      onClick={buttons.close.onClick}
-                      style={{
-                        backgroundColor: '#ffad0d',
-                        padding: '0.8rem 1.6rem',
-                        border: 'none',
-                        color: '#fff',
-                        borderRadius: '3px',
-                        fontSize: '1rem',
-                        fontWeight: 600,
-                        cursor: 'pointer'
-                      }}
-                    >
-                      {buttons.close.label ?? 'Cancel'}
-                    </button>
-                  )}
-                  {buttons.confirm && (
-                    // <ActionButton
-                    //   text={buttons.confirm.label ?? t('save')}
-                    //   icon={buttons.confirm.icon ?? 'fas fa-check-circle'}
-                    //   onClick={buttons.confirm.onClick}
-                    // />
-                    <button
-                      onClick={buttons.confirm.onClick}
-                      style={{
-                        backgroundColor: '#ffad0d',
-                        padding: '0.8rem 1.6rem',
-                        border: 'none',
-                        color: '#fff',
-                        borderRadius: '3px',
-                        fontSize: '1rem',
-                        fontWeight: 600,
-                        cursor: 'pointer'
-                      }}
-                    >
-                      {buttons.confirm.label ?? 'Save'}
-                    </button>
-                  )}
-                </div>
-              )}
+              {/*  <button onClick={handleSave}>Save</button>*/}
+              {/*</div>*/}
+              <div>
+                {buttons && (
+                  <div
+                    style={{
+                      display: 'flex',
+                      justifyContent: 'space-between',
+                      margin: '2rem 0 1rem 0'
+                    }}
+                  >
+                    {buttons.close && (
+                      // <ActionButton
+                      //   text={buttons.close.label ?? t('cancel')}
+                      //   icon={buttons.close.icon ?? 'fas fa-chevron-circle-left'}
+                      //   onClick={buttons.close.onClick}
+                      // />
+                      <button
+                        onClick={buttons.close.onClick}
+                        style={{
+                          backgroundColor: '#ffad0d',
+                          padding: '0.8rem 1.6rem',
+                          border: 'none',
+                          color: '#fff',
+                          borderRadius: '3px',
+                          fontSize: '1rem',
+                          fontWeight: 600,
+                          cursor: 'pointer'
+                        }}
+                      >
+                        {buttons.close.label ?? 'Cancel'}
+                      </button>
+                    )}
+                    {buttons.confirm && (
+                      // <ActionButton
+                      //   text={buttons.confirm.label ?? t('save')}
+                      //   icon={buttons.confirm.icon ?? 'fas fa-check-circle'}
+                      //   onClick={buttons.confirm.onClick}
+                      // />
+                      <button
+                        onClick={buttons.confirm.onClick}
+                        style={{
+                          backgroundColor: '#ffad0d',
+                          padding: '0.8rem 1.6rem',
+                          border: 'none',
+                          color: '#fff',
+                          borderRadius: '3px',
+                          fontSize: '1rem',
+                          fontWeight: 600,
+                          cursor: 'pointer'
+                        }}
+                      >
+                        {buttons.confirm.label ?? 'Save'}
+                      </button>
+                    )}
+                  </div>
+                )}
+              </div>
             </div>
           </div>
-        </div>
+        </AnimatePresence>
       </motion.div>
+      {/* <AnimatePresence
+        initial={false}
+        mode="wait"
+        // exitBeforeEnter={true}
+        onExitComplete={() => null}
+      >
+        {isOpen && (
+          <Modal
+            buttons={{
+              close: {
+                label: 'asdsd',
+                onClick() {
+                  close();
+                }
+              }
+            }}
+          />
+        )}
+      </AnimatePresence> */}
     </Backdrop>
   );
 }
