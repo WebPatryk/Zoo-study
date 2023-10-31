@@ -25,7 +25,8 @@ const navigation = [
   { icon: Home, label: 'Home', href: '' },
   { icon: CalendarBasic, label: 'Events', href: '/calendar' },
   { icon: Paw, label: 'Feed animals', href: '/feed-animals' },
-  { icon: Chat, label: 'Chat', href: '/chat' }
+  { icon: Chat, label: 'Chat', href: '/chat' },
+  { icon: '', label: 'Ticket', href: '/ticket' }
 ];
 
 const Navbar: NextPage = () => {
