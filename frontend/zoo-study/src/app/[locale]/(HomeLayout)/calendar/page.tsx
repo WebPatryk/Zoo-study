@@ -62,9 +62,12 @@ export default function Index() {
         Add new event
       </button>
       <div className={styles.lists}>
-        {Array.from({ length: numberOfCopies + 1 }).map((_, index) => (
-          <LatestEvents key={index} {...resData[index % resData.length]} />
-        ))}
+        {/*{Array.from({ length: numberOfCopies + 1 }).map((_, index) => (*/}
+        {/*  <LatestEvents key={index} {...resData[index % resData.length]} />*/}
+        {/*))}*/}
+
+        {resData &&
+          resData.map((item, index) => <LatestEvents key={index} {...item} />)}
       </div>
       {isOpen() && (
         <Modal
@@ -161,12 +164,6 @@ export default function Index() {
             <button type="submit" className={styles.button}>
               Submit
             </button>
-            <p className={styles.noAccount}>
-              Don't have an account
-              <Link href="/register">
-                <span className={styles.signUpText}>Sign up</span>
-              </Link>
-            </p>
           </form>
         </Modal>
       )}

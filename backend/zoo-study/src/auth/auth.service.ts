@@ -5,13 +5,13 @@ import {
   Injectable,
   UnauthorizedException,
 } from '@nestjs/common';
-import { User, UsersService } from '../users/users.service';
 import { JwtService, JwtSignOptions } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
 import { AST } from 'eslint';
 import Token = AST.Token;
 import { config } from 'rxjs';
 import { jwtConstants } from './constants';
+import { User, UsersService } from 'src/users/users.service';
 
 @Injectable()
 export class AuthService {

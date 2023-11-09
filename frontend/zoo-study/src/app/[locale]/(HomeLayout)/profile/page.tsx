@@ -7,7 +7,7 @@ import DaysOff from '@/app/components/DaysOff/DaysOff';
 const Index = () => {
   const [page, setPage] = useState('basic');
 
-  useCallback(() => {
+  const renderComponent = useCallback(() => {
     switch (page) {
       case 'basic':
         return <BasicProfile />;
@@ -15,6 +15,8 @@ const Index = () => {
       case 'days_off':
         return <DaysOff />;
         break;
+      default:
+        return null;
     }
   }, [page]);
 
@@ -25,7 +27,7 @@ const Index = () => {
       <div>
         <button onClick={() => setPage('basic')}>Basic</button>
         <button onClick={() => setPage('days_off')}>Days off</button>
-        {page}
+        {renderComponent()}
       </div>
     </div>
   );

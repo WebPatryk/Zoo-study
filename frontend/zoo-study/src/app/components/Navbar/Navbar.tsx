@@ -8,6 +8,7 @@ import Icon from '@/app/assets/icons/logo.png';
 import Home from '@/app/assets/icons/home.svg';
 import CalendarBasic from '@/app/assets/icons/calendar-basic.svg';
 import Paw from '@/app/assets/icons/paw.svg';
+import Ticket from '@/app/assets/icons/ticket.png';
 import Chat from '@/app/assets/icons/chat.svg';
 import { FaArrowRight } from 'react-icons/fa';
 import { useEffect, useState } from 'react';
@@ -26,7 +27,7 @@ const navigation = [
   { icon: CalendarBasic, label: 'Events', href: '/calendar' },
   { icon: Paw, label: 'Feed animals', href: '/feed-animals' },
   { icon: Chat, label: 'Chat', href: '/chat' },
-  { icon: '', label: 'Ticket', href: '/ticket' }
+  { icon: Ticket, label: 'Ticket', href: '/ticket' }
 ];
 
 const Navbar: NextPage = () => {

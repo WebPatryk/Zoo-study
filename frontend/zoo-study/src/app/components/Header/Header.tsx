@@ -1,4 +1,4 @@
-'use client'
+'use client';
 
 import type { NextPage } from 'next';
 import styles from './Header.module.scss';
@@ -10,14 +10,15 @@ import {
   FaUserCircle
 } from 'react-icons/fa';
 // import { useRouter,usePathname } from 'next-intl/client';
-import {useRouter } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation';
 
-import {useEffect, useState} from 'react';
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useCookies } from 'react-cookie';
 
 const Header: NextPage = () => {
   const { locale, push } = useRouter();
+  const pathname = usePathname();
   // const router = useRouter();
 
   // const pathname = usePathname()
@@ -26,7 +27,7 @@ const Header: NextPage = () => {
   const [cookies, setCookie, removeCookie] = useCookies(['OutsiteJWT']);
   const changeLanguage = (e: any) => {
     const lang = e.target.value;
-    console.log(lang)
+    console.log(lang);
 
     // push(`$/{lang}`, undefined, { locale: lang });
     push(`/${lang}`);
@@ -34,8 +35,6 @@ const Header: NextPage = () => {
     // router.push(pathname, { locale: lang });
     // setLanguage(e.target.value);
   };
-
-
 
   const toggleOpenModal = () => {};
 
@@ -57,7 +56,7 @@ const Header: NextPage = () => {
   //   }
   // };
 
-  const logout = ()=>{}
+  const logout = () => {};
   return (
     <div className={styles.container}>
       <select name="" id="" onChange={changeLanguage} value={language}>
@@ -80,11 +79,17 @@ const Header: NextPage = () => {
         {isOpenModal && (
           <div className={styles.userModal}>
             <div>
-              <Link href="/" className={styles.useModalElement}>
+              <Link
+                href={pathname.substring(0, 3) + '/profile'}
+                className={styles.useModalElement}
+              >
                 <FaUser className={styles.bell} />
                 <p className={styles.a}>Profile</p>
               </Link>
-              <Link href="/" className={styles.useModalElement}>
+              <Link
+                href={pathname.substring(0, 3) + '/settings'}
+                className={styles.useModalElement}
+              >
                 <FaCog className={styles.bell} />
                 <p className={styles.a}>Settings</p>
               </Link>

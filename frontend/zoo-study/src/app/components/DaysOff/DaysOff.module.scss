@@ -1,0 +1,51 @@
+.daysOff{
+
+  .title{
+    font-size: 1.6rem;
+    color: $fifth-color;
+  }
+
+  .daysOffContainer{
+    display: flex;
+    gap: 30px;
+    margin-bottom: 3rem;
+  }
+
+  .headBox{
+    display: flex;
+    align-items: center;
+    color: $white-color;
+    border-bottom: 1px solid $white-color;
+    padding:20px 30px
+  }
+.box{
+  background-color:$fifth-color;
+  border-radius: 6px;
+
+
+  svg{
+    font-size: 1.4rem;
+  }
+
+  p{
+    color: $white-color;
+    font-weight: bold;
+    font-size: 1rem;
+    margin-left: 1rem;
+  }
+
+  h4{
+    color: $white-color;
+    font-size: 1.5rem;
+    font-weight: normal;
+    text-align: center;
+  }
+  span{
+    color: $white-color;
+    display: block;
+    margin: 0 auto 1rem;
+    text-align: center;
+
+  }
+}
+}
