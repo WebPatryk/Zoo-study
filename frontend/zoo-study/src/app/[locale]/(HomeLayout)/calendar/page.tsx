@@ -5,11 +5,12 @@ import LatestEvents from '@/app/components/LatestEvents/LatestEvents';
 import styles from './Calendar.module.scss';
 import Modal, { useModal } from '@/app/hooks/modal/useModal';
 import { NextPage } from 'next';
-import { SubmitHandler, useForm } from 'react-hook-form';
+import { FieldPath, SubmitHandler, useForm } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
 import { ErrorMessage } from '@hookform/error-message';
 import { FaRegEye, FaRegEyeSlash } from 'react-icons/fa';
 import Link from 'next/link';
+import { MdOutlineSecurityUpdate } from 'react-icons/md';
 
 export default function Index() {
   const [resData, setResData] = useState([]); // Use state to store your data
@@ -38,22 +39,56 @@ export default function Index() {
 
   const router = useRouter();
 
-  const onSubmit: SubmitHandler<Inputs> = (data: Inputs) => {};
+  const onSubmit: SubmitHandler<Inputs> = (data: Inputs) => {
+    let newValueToSubmit = {};
+    if (!('image' in data)) {
+      newValueToSubmit = {
+        ...data,
+        image:
+          'https://dogbarstpete.com/wp-content/uploads/2020/01/BirthdayDogs.png'
+      };
+    }
+    console.log(newValueToSubmit);
+
+    const addEvent = async () => {
+      console.log(data);
+      try {
+        const res = await fetch(`http://localhost:3001/events`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(newValueToSubmit)
+        });
+        const values = await res.json();
+        setEvents([...events, values]);
+        close();
+
+        console.log(values);
+        console.log('Event added successfully');
+      } catch (error) {
+        console.error('Error added event:', error);
+      }
+    };
+    addEvent();
+  };
+
+  const [events, setEvents] = useState([]);
 
   useEffect(() => {
-    async function fetchData() {
-      try {
-        const response = await getData();
-        setResData(response);
-        const targetCount = 12;
-        setNumberOfCopies(targetCount - response.length);
-      } catch (error) {
-        console.error('Failed to fetch data', error);
-      }
-    }
+    const fetchEvents = async () => {
+      const res = await fetch('http://localhost:3001/events');
 
-    fetchData();
-  }, []);
+      if (!res.ok) {
+        throw new Error('Failed to fetch data');
+      }
+
+      const data = await res.json();
+      setEvents(data);
+    };
+
+    fetchEvents();
+  }, [events.length]);
 
   return (
     <div className={styles.latestEvents}>
@@ -62,23 +97,20 @@ export default function Index() {
         Add new event
       </button>
       <div className={styles.lists}>
-        {/*{Array.from({ length: numberOfCopies + 1 }).map((_, index) => (*/}
-        {/*  <LatestEvents key={index} {...resData[index % resData.length]} />*/}
-        {/*))}*/}
-
-        {resData &&
-          resData.map((item, index) => <LatestEvents key={index} {...item} />)}
+        {events &&
+          events.map((item, index) => (
+            <LatestEvents
+              key={index}
+              {...item}
+              events={events}
+              setEvents={setEvents}
+            />
+          ))}
       </div>
       {isOpen() && (
         <Modal
           title="Add new event"
           buttons={{
-            confirm: {
-              label: 'Save',
-              onClick() {
-                close();
-              }
-            },
             close: {
               label: 'Close',
               onClick() {
@@ -96,15 +128,15 @@ export default function Index() {
               type="text"
               placeholder="Name"
               className={styles.input}
-              {...register('name', {
-                required: 'Name is required',
+              {...register('title', {
+                required: 'Title is required',
                 minLength: {
                   value: 3,
-                  message: 'Name is too short'
+                  message: 'Title is too short'
                 },
                 maxLength: {
                   value: 40,
-                  message: 'Name is too long'
+                  message: 'Title is too long'
                 }
               })}
             />
@@ -160,6 +192,29 @@ export default function Index() {
               as="p"
               className={styles.error}
             />
+            <div>
+              <label htmlFor="starts_at" className={styles.label}>
+                Start event date:
+              </label>
+              <input
+                id="starts_at"
+                type="date"
+                placeholder="Start date"
+                className={styles.select}
+                min={new Date().toISOString().split('T')[0]}
+                {...register('starts_at' as FieldPath<undefined>, {
+                  required: 'Start date is required',
+                  minLength: {
+                    value: 3,
+                    message: 'Start date is too short'
+                  },
+                  maxLength: {
+                    value: 40,
+                    message: 'Start date is too long'
+                  }
+                })}
+              />
+            </div>
 
             <button type="submit" className={styles.button}>
               Submit
@@ -169,14 +224,4 @@ export default function Index() {
       )}
     </div>
   );
-}
-
-async function getData() {
-  const res = await fetch('http://localhost:3001/events');
-
-  if (!res.ok) {
-    throw new Error('Failed to fetch data');
-  }
-
-  return res.json();
 }

@@ -1,0 +1,31 @@
+.profile {
+  .title{
+    color: $secondary-color;
+    font-size: 1.6rem;
+    margin-bottom: 1rem;
+  }
+  .tabs {
+    display: flex;
+    gap: 10px;
+    background-color: #ffad0d;
+    padding: .6rem 1rem;
+  }
+
+  .tab {
+    color: $white-color;
+    background-color: #f6dea9;
+    padding: .7rem 1.4rem;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+    letter-spacing: .6px;
+    font-size: .8rem;
+
+  }
+
+  .active {
+    background-color: white;
+    color: $secondary-color;
+
+  }
+}

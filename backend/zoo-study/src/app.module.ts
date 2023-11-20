@@ -8,6 +8,8 @@ import { AuthModule } from './auth/auth.module';
 import { VisitorsModule } from './visitors/visitors.module';
 import { TicketModule } from './ticket/ticket.module';
 import { UsersModule } from 'src/users/users.module';
+import { AppUsersController } from './app-users/app-users.controller';
+import { AppUsersModule } from 'src/app-users/app-users.module';
 
 @Module({
   imports: [
@@ -18,6 +20,7 @@ import { UsersModule } from 'src/users/users.module';
     UsersModule,
     VisitorsModule,
     TicketModule,
+    AppUsersModule,
   ],
   controllers: [AppController],
   providers: [AppService],

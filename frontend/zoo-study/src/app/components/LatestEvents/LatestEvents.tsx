@@ -7,6 +7,11 @@ import Calendar from '@/app/assets/icons/calendar.svg';
 import Time from '@/app/assets/icons/time.svg';
 import Paw from '@/app/assets/icons/paw.svg';
 import Image from 'next/image';
+import { FaTrash } from 'react-icons/fa';
+import Modal, { useModal } from '@/app/hooks/modal/useModal';
+import QRCode from 'react-qr-code';
+import React from 'react';
+
 interface EventInterface {
   _id: string;
   title: string;
@@ -16,7 +21,19 @@ interface EventInterface {
   localization: string;
 }
 
-const LatestEvents = ({ title }: { title: string }) => {
+const LatestEvents = ({
+  _id,
+  title,
+  image,
+  starts_at,
+  events,
+  setEvents
+}: {
+  title: string;
+}) => {
+  const { isOpen, close, data, open } = useModal();
+
+  console.log(_id);
   return (
     <div className={styles.latestEvents}>
       <h4 className={styles.time}>
@@ -29,19 +46,29 @@ const LatestEvents = ({ title }: { title: string }) => {
               <p>Open party</p>
               <h6>{title}</h6>
             </div>
-            <img
-              src="https://iconutopia.com/wp-content/uploads/2016/06/space-dog-laika1.png"
-              alt="image"
-            />
+            <img src={image} alt="image" className={styles.avatar} />
           </div>
           <div className={styles.information}>
             <div className={styles.informationRow}>
               <Image src={Calendar} alt="icon" />
-              <p>21.04.2021</p>
+              <p>
+                {starts_at &&
+                  new Intl.DateTimeFormat('en-US', {
+                    year: 'numeric',
+                    month: 'numeric',
+                    day: 'numeric'
+                  }).format(new Date(starts_at))}
+              </p>
             </div>
             <div className={styles.informationRow}>
               <Image src={Time} alt="icon" />
-              <p>7am - 15am</p>
+              <p>
+                {new Date(starts_at).toLocaleTimeString(undefined, {
+                  hour: '2-digit',
+                  minute: '2-digit',
+                  second: '2-digit'
+                })}
+              </p>
             </div>
           </div>
           <div>
@@ -52,17 +79,73 @@ const LatestEvents = ({ title }: { title: string }) => {
               voluptas, voluptates. Dolores, nam.
             </p>
             <div className={styles.bottom}>
-              <button>Read more</button>
-              <p>
-                Status <span>Signed</span>
-              </p>
+              <Link href={`calendar/${_id}`} className={styles.link}>
+                Read more 🡢
+              </Link>
+              <button
+                className={styles.removeButton}
+                onClick={() => {
+                  open({ _id, title });
+                }}
+              >
+                <FaTrash className={styles.removeIcon} />
+              </button>
             </div>
           </div>
         </div>
       </div>
-      <Link href="/calendar" className={styles.link}>
-        {/*Show more <FaAngleRight />*/}
-      </Link>
+      <Link href="/calendar" className={styles.link}></Link>
+      {isOpen() && (
+        <div id="printModal">
+          <Modal
+            title="Are you sure you want to remove it?"
+            buttons={{
+              confirm: {
+                label: 'Remove',
+                onClick() {
+                  const removeEvent = async () => {
+                    try {
+                      const res = await fetch(
+                        `http://localhost:3001/events/${_id}`,
+                        {
+                          method: 'DELETE',
+                          headers: {
+                            'Content-Type': 'application/json'
+                          }
+                        }
+                      );
+                      const values = await res.json();
+                      setEvents(event => event._id !== events._id);
+
+                      console.log(values);
+                      console.log('Event removed successfully');
+                    } catch (error) {
+                      console.error('Error removing event:', error);
+                    }
+                  };
+                  removeEvent();
+                }
+              },
+              close: {
+                label: 'Close',
+                onClick() {
+                  close();
+                }
+              }
+            }}
+          >
+            <div className={styles.ticketPrint}>
+              <p>
+                Event id: <i>{data._id}</i>
+              </p>
+              <br />
+              <p>
+                Event name: <u>{data.title}</u>
+              </p>
+            </div>
+          </Modal>
+        </div>
+      )}
     </div>
   );
 };

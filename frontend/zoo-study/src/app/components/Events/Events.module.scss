@@ -5,6 +5,7 @@
 
   .eventContainer {
     display: flex;
+    justify-content: space-between;
 
     .readMore {
       align-self: flex-end;
@@ -24,6 +25,8 @@
     align-items: center;
     color: $gray-color;
     margin-left: auto;
+    margin-right: 2rem;
+    margin-top: 1rem;
 
     svg{
       margin-left: .5rem;

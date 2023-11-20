@@ -1,4 +1,4 @@
-'use clinet';
+'use client';
 
 // import ActionButton from 'components/Buttons/ActionButton';
 // import { CardHeader } from 'components/Content/Card';
@@ -6,7 +6,6 @@ import React, { MouseEventHandler, useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import styles from './Modal.module.scss';
 import { motion, AnimatePresence } from 'framer-motion';
-import { log } from 'console';
 
 interface ModalButtonArgs {
   onClick: () => void;
@@ -19,8 +18,9 @@ interface Args {
   size?: string;
   title?: string;
   buttons?: {
-    confirm: ModalButtonArgs;
+    confirm?: ModalButtonArgs;
     close?: ModalButtonArgs;
+    showOnBottom?: boolean;
   };
   isOpen: boolean;
   className?: string;
@@ -65,7 +65,7 @@ export default function Modal({
       y: '0',
       opacity: 1,
       transition: {
-        duration: 0.1,
+        duration: 0.5,
         type: 'spring',
         damping: 25,
         stiffness: 500
@@ -96,11 +96,10 @@ export default function Modal({
         <AnimatePresence mode="wait">
           <div>
             <h2>{title}</h2>
-            {buttons && (
-              <span className={styles.close} onClick={buttons.close?.onClick}>
-                &times;
-              </span>
-            )}
+            <span className={styles.close} onClick={buttons.close?.onClick}>
+              &times;
+            </span>
+
             <div className={styles.content}>
               {children}
 
@@ -118,7 +117,7 @@ export default function Modal({
                       margin: '2rem 0 1rem 0'
                     }}
                   >
-                    {buttons.close && (
+                    {buttons.close && buttons.close.showOnBottom && (
                       // <ActionButton
                       //   text={buttons.close.label ?? t('cancel')}
                       //   icon={buttons.close.icon ?? 'fas fa-chevron-circle-left'}

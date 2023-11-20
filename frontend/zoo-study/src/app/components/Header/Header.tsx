@@ -86,13 +86,13 @@ const Header: NextPage = () => {
                 <FaUser className={styles.bell} />
                 <p className={styles.a}>Profile</p>
               </Link>
-              <Link
-                href={pathname.substring(0, 3) + '/settings'}
-                className={styles.useModalElement}
-              >
-                <FaCog className={styles.bell} />
-                <p className={styles.a}>Settings</p>
-              </Link>
+              {/*<Link*/}
+              {/*  href={pathname.substring(0, 3) + '/settings'}*/}
+              {/*  className={styles.useModalElement}*/}
+              {/*>*/}
+              {/*  <FaCog className={styles.bell} />*/}
+              {/*  <p className={styles.a}>Settings</p>*/}
+              {/*</Link>*/}
               <Link
                 href="/"
                 className={styles.useModalElement}

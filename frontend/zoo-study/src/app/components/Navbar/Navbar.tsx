@@ -101,9 +101,7 @@ const Navbar: NextPage = () => {
         </div>
         <h4>Contact with us</h4>
         <p>Please take a note to is if you have any questions?</p>
-        <button className={styles.button}>
-          <FaArrowRight />
-        </button>
+        <i>zoo-portal@gmail.com</i>
       </div>
     </div>
   );
