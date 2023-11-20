@@ -91,7 +91,7 @@ export default function Index() {
   }, [events.length]);
 
   return (
-    <div className={styles.latestEvents}>
+    <div className={styles.latestEvents} style={{ marginLeft: 30 }}>
       <h3 className={styles.title}>The latest events 🎉</h3>
       <button className={styles.addNewEventButton} onClick={open}>
         Add new event

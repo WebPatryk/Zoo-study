@@ -137,7 +137,7 @@ const Index = () => {
   };
 
   return (
-    <div style={{ marginRight: '2rem' }}>
+    <div style={{ margin: '0 2rem' }}>
       <h4 className={styles.title}>Ticket generator</h4>
       <button
         className={styles.button}

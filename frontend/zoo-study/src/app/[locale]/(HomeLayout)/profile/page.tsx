@@ -55,7 +55,7 @@ const Index = () => {
   ]);
 
   return (
-    <div className={styles.profile}>
+    <div className={styles.profile} style={{ marginLeft: 30 }}>
       <h5 className={styles.title}>Profile</h5>
 
       <div className={styles.tabs}>

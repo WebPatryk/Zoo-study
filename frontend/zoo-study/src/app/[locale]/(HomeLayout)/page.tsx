@@ -11,7 +11,7 @@ export default async function Index({ children, params: { locale } }) {
   console.log(visitors);
 
   return (
-    <main className={styles.main}>
+    <main className={styles.main} style={{ marginLeft: 30 }}>
       <div className={styles.navbar}></div>
       <Greetings />
       <Events eventsData={events} />
