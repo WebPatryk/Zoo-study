@@ -6,9 +6,12 @@
     color: $tertiary-color;
     font-size: 1.4rem;
     margin-top: 4rem;
+    margin-bottom: 4rem;
   }
 .chart{
   display: flex;
-  min-width: 500px;
+  max-width: 100%;
+  min-width: 400px;
+  margin-right: 5rem;
 }
 }

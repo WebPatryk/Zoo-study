@@ -36,7 +36,7 @@ span {
 }
 
 .swiper {
-  width: 600px;
+  width: 500px;
   height: 500px;
 }
 
@@ -44,7 +44,7 @@ span {
   text-align: center;
   font-size: 18px;
   background: #fff;
-
+  /*justify-content: unset !important;*/
   /* Center slide text vertically */
   display: -webkit-box;
   display: -ms-flexbox;
@@ -53,7 +53,6 @@ span {
   -webkit-box-pack: center;
   -ms-flex-pack: center;
   -webkit-justify-content: center;
-  justify-content: center;
   -webkit-box-align: center;
   -ms-flex-align: center;
   -webkit-align-items: center;

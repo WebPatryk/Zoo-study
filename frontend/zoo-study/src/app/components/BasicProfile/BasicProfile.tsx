@@ -120,25 +120,6 @@ const BasicProfile = ({ profileData }) => {
             onSubmit={handleSubmit(onSubmit)}
             autoComplete="off"
           >
-            <img src="#" alt="" />
-            <div className={styles.file}>
-              <input
-                name="image"
-                type="file"
-                id="updateAvatar"
-                onChange={handleImageChange}
-              />
-              <label htmlFor="updateAvatar" className={styles.updateLogo}>
-                <MdOutlineSecurityUpdate />
-                <span>Update Avatar</span>
-              </label>
-              <ErrorMessage
-                errors={errors}
-                name="image"
-                as="p"
-                className={styles.error}
-              />
-            </div>
             <div className={styles.basicProfileForm}>
               <div className={styles.left}>
                 <div>

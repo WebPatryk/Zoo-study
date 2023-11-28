@@ -1,4 +1,4 @@
-import styles from '@/app/[locale]/(HomeLayout)/Layout.module.scss';
+import styles from '@/app/(HomeLayout)/Layout.module.scss';
 import Greetings from '@/app/components/Greetings/Greetings';
 import Events from '@/app/components/Events/Events';
 import Feed from '@/app/components/Feed/Feed';

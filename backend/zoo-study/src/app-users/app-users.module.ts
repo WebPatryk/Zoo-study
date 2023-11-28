@@ -14,6 +14,7 @@ import { AllUsersSchema } from 'src/app-users/schema/app-users.schema';
       },
     ]),
   ],
+
   controllers: [AppUsersController],
   providers: [AppUsersService],
 })

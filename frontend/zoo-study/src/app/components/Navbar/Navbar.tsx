@@ -23,18 +23,38 @@ interface Navigation {
 }
 
 const navigation = [
-  { icon: Home, label: 'Home', href: '' },
+  { icon: Home, label: 'Home', href: '/' },
   { icon: CalendarBasic, label: 'Events', href: '/calendar' },
-  { icon: Paw, label: 'Feed animals', href: '/feed-animals' },
-  { icon: Chat, label: 'Chat', href: '/chat' },
+  // { icon: Paw, label: 'Feed animals', href: '/feed-animals' },
+  // { icon: Chat, label: 'Chat', href: '/chat' },
   { icon: Ticket, label: 'Ticket', href: '/ticket' }
 ];
 
 const Navbar: NextPage = () => {
-  const [scrolled, setScrolled] = useState<boolean>(false);
-  const [selectedTab, setSelectedTab] = useState<any>(navigation[0].href);
-
   const pathname = usePathname();
+  const [scrolled, setScrolled] = useState<boolean>(false);
+  const [currentURL, setCurrentURL] = useState();
+
+  useEffect(() => {
+    if (window) {
+      const currentURL = new URL(window.location.href).origin;
+      setCurrentURL(currentURL as any);
+
+      // host (domain)
+      const host = currentURL.host;
+      console.log('Host:', host);
+
+      // path (path dari URL)
+      const path = currentURL.pathname;
+      console.log('Path:', path);
+
+      // query (parameter dari URL)
+      const query = currentURL.search;
+      console.log('Query:', query);
+    }
+  }, []);
+  // console.log(pathname.href);
+  // const currentURL = new URL(window.location.href);
 
   const handleScroll = () => {
     const offset = window.scrollY;
@@ -56,9 +76,7 @@ const Navbar: NextPage = () => {
   const contentClassname = (item: any) => {
     // console.log('PATHNAME', pathname.substring(3))
     // console.log("ITEM",item.href)
-    return item.href === pathname.substring(3)
-      ? `${styles['selected']} ${styles.li}`
-      : '';
+    return item.href === pathname ? `${styles['selected']} ${styles.li}` : '';
   };
 
   return (
@@ -78,12 +96,12 @@ const Navbar: NextPage = () => {
             >
               <Link
                 className={styles.link}
-                href={pathname.substring(0, 3) + item.href}
+                href={currentURL + '/' + item.href.substring(1)}
               >
                 <Image src={item.icon} height={30} width={30} alt="icon" />
                 <p>{item.label}</p>
 
-                {item.href === pathname.substring(3) ? (
+                {item.href === pathname ? (
                   <motion.div
                     className={styles.underline}
                     layoutId="underline"

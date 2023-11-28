@@ -7,11 +7,12 @@ import icon from '@/app/assets/images/dog.svg';
 import Image from 'next/image';
 import styles from './Login.module.scss';
 import Link from 'next/link';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { FaRegEye, FaRegEyeSlash } from 'react-icons/fa';
 import { ErrorMessage } from '@hookform/error-message';
+import { toast, ToastContainer } from 'react-toastify';
 import { useRouter } from 'next/navigation';
-import { toast } from 'react-toastify';
+import { useAuth } from '@/app/context/AuthContext';
 
 type Inputs = {
   username: string;
@@ -27,7 +28,46 @@ const Login: NextPage = () => {
 
   const router = useRouter();
 
-  const onSubmit: SubmitHandler<Inputs> =  (data: Inputs) => {
+  const onSubmit: SubmitHandler<Inputs> = (data: Inputs) => {
+    const { username, password } = data;
+
+    const loginUser = async () => {
+      try {
+        const response = await fetch('http://localhost:3001/auth/login', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ username, password })
+        });
+        const responseData = await response.json();
+        console.log(responseData);
+        if (responseData.access_token) {
+          toast.success('Data are correct', {
+            position: 'bottom-right',
+            autoClose: 5000
+          });
+          setTimeout(async () => {
+            await localStorage.setItem(
+              'access_token',
+              responseData.access_token
+            );
+            await router.push('/');
+          }, 2000);
+        } else {
+          toast.error('Passed credentials are not correct :(', {
+            position: 'bottom-right'
+          });
+        }
+        // Store the token in your chosen storage mechanism (cookie, local storage, etc.)
+      } catch (error) {
+        toast.error('Error!');
+        console.error('Login failed', error);
+      }
+    };
+    loginUser();
+
+    // signIn();
     // const { username, password } = data;
     // const userData = { username: 'john', password: 'change' };
     //
@@ -164,6 +204,7 @@ const Login: NextPage = () => {
           </p>
         </form>
       </div>
+      <ToastContainer />
     </div>
   );
 };

@@ -36,7 +36,26 @@ const Header: NextPage = () => {
     // setLanguage(e.target.value);
   };
 
-  const toggleOpenModal = () => {};
+  const toggleOpenModal = () => {
+    setIsOpenModal(!isOpenModal);
+  };
+
+  useEffect(() => {
+    const handleOutsideClick = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+      const modal = document.querySelector('#modal');
+
+      if (modal && !modal.contains(target) && isOpenModal) {
+        setIsOpenModal(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleOutsideClick);
+
+    return () => {
+      document.removeEventListener('mousedown', handleOutsideClick);
+    };
+  }, [isOpenModal]);
 
   // const logout = async () => {
   //   // cookies.remove('OutsiteJWT');
@@ -55,32 +74,23 @@ const Header: NextPage = () => {
   //     await push('/login');
   //   }
   // };
-
-  const logout = () => {};
+  console.log(new URL(window.location.href).origin);
+  const logout = async () => {
+    await localStorage.removeItem('access_token');
+    await push('/login');
+  };
   return (
     <div className={styles.container}>
-      <select name="" id="" onChange={changeLanguage} value={language}>
-        <option value="en">English</option>
-        <option value="pl">Polish</option>
-        <option value="de">Deutsch</option>
-      </select>
-      <div className={styles.bellContainer}>
-        <FaRegBell className={styles.bell} />
-        <p className={styles.notificationCount}>1</p>
-      </div>
-      <div className={styles.userContainer}>
+      <div className={styles.userContainer} id="modal">
         <FaUserCircle className={styles.userLogo} />
-        <p
-          className={styles.userName}
-          onClick={() => setIsOpenModal(!isOpenModal)}
-        >
+        <p className={styles.userName} onClick={toggleOpenModal}>
           Thomas Anders
         </p>
         {isOpenModal && (
           <div className={styles.userModal}>
             <div>
               <Link
-                href={pathname.substring(0, 3) + '/profile'}
+                href={new URL(window.location.href).origin + '/profile'}
                 className={styles.useModalElement}
               >
                 <FaUser className={styles.bell} />

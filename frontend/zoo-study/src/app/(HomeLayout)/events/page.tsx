@@ -1,6 +1,6 @@
 'use client';
 
-import styles from '@/app/[locale]/(HomeLayout)/Layout.module.scss';
+import styles from '@/app/(HomeLayout)/Layout.module.scss';
 
 import FilterFeedAnimalsForm from '@/app/components/Form/FilterFeedAnimalsForm';
 import { useEffect, useState } from 'react';

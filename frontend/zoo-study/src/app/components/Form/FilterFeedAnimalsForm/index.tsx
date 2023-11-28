@@ -14,15 +14,6 @@ const Index: NextPage = () => {
   return (
     <div className={styles.container}>
       <div>
-        <label htmlFor="">Status</label>
-        <select name="" id="" onChange={handleChangeStatus} value={status}>
-          <option value="en">English</option>
-          <option value="pl">Polish</option>
-          <option value="de">Deutsch</option>
-        </select>
-      </div>
-
-      <div>
         <label htmlFor="">Time</label>
       </div>
       <div>

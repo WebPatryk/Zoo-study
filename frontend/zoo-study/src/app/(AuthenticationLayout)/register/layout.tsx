@@ -59,30 +59,14 @@ import Navbar from '@/app/components/Navbar/Navbar';
 import Header from '@/app/components/Header/Header';
 import Footer from '@/app/components/Footer/Footer';
 
-export default async function LocaleLayout({ children, params: { locale } }) {
-  let messages;
-  try {
-    messages = (await import(`../../messages/${locale}.json`)).default;
-  } catch (error) {
-    notFound();
-  }
+export function generateStaticParams() {
+  return [{ locale: 'en' }, { locale: 'de' }];
+}
 
+export default async function LocaleLayout({ children }) {
   return (
-    <html lang={locale}>
-      <body suppressHydrationWarning={true}>
-        <NextIntlClientProvider locale={locale} messages={messages}>
-          <div>
-            <Navbar />
-            <div>
-              <Header />
-              <main className={styles.main}>
-                {children}
-                <Footer />
-              </main>
-            </div>
-          </div>
-        </NextIntlClientProvider>
-      </body>
+    <html>
+      <body suppressHydrationWarning={true}>{children}</body>
     </html>
   );
 }

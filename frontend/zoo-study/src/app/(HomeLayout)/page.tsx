@@ -1,5 +1,5 @@
-import styles from '@/app/[locale]/(HomeLayout)/Layout.module.scss';
-
+import styles from '@/app/(HomeLayout)/Layout.module.scss';
+import 'react-toastify/dist/ReactToastify.css';
 import Greetings from '@/app/components/Greetings/Greetings';
 import Events from '@/app/components/Events/Events';
 import Feed from '@/app/components/Feed/Feed';

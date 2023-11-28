@@ -43,7 +43,7 @@ const Index = () => {
   }, []);
 
   return (
-    <div style={{ marginRight: '2rem' }}>
+    <div style={{ marginLeft: '2rem' }}>
       <h3 className={styles.title}>All tickets </h3>
 
       <div className={styles.tableContainer}>

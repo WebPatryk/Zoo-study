@@ -1,3 +1,4 @@
+'use client';
 
 // import { NextIntlClientProvider } from 'next-intl';
 // import { notFound } from 'next/navigation';
@@ -53,35 +54,45 @@
 //   );
 // }
 
+import { NextIntlClientProvider } from 'next-intl';
+import { notFound } from 'next/navigation';
+import styles from '@/app/components/layout/Layout.module.scss';
+import Navbar from '@/app/components/Navbar/Navbar';
+import Header from '@/app/components/Header/Header';
+import Footer from '@/app/components/Footer/Footer';
+import { useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
+export default function LocaleLayout({ children }) {
+  const router = useRouter();
+  const storedData = localStorage.getItem('access_token');
 
-import {NextIntlClientProvider} from 'next-intl';
-import {notFound} from 'next/navigation';
-import styles from "@/app/components/layout/Layout.module.scss";
-import Navbar from "@/app/components/Navbar/Navbar";
-import Header from "@/app/components/Header/Header";
-import Footer from "@/app/components/Footer/Footer";
-
-export function generateStaticParams() {
-    return [{locale: 'en'}, {locale: 'de'}];
-}
-
-export default async function LocaleLayout({children, params: {locale}}) {
-    let messages;
-    try {
-        messages = (await import(`../../../messages/${locale}.json`)).default;
-    } catch (error) {
-        notFound();
+  useEffect(() => {
+    if (!storedData) {
+      // If access_token is not present, redirect to login
+      router.push('/login');
     }
+  }, [storedData, router]);
 
-    return (
-        <html lang={locale}>
-        <body suppressHydrationWarning={true}>
-        <NextIntlClientProvider locale={locale} messages={messages}>
-            {children}
-        </NextIntlClientProvider>
-        </body>
-        </html>
-    );
+  if (!storedData) {
+    return null; // Render nothing if redirecting
+  }
+
+  return (
+    <html>
+      <body suppressHydrationWarning={true}>
+        <div>
+          <Navbar />
+          <div>
+            <Header />
+            <main className={styles.main}>
+              {children}
+              <Footer />
+            </main>
+          </div>
+        </div>
+      </body>
+    </html>
+  );
 }
 
 // <div {...props}>

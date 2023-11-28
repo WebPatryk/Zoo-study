@@ -37,13 +37,13 @@ export default function Index({}) {
           <div className="left">
             <div className={styles.box}>
               <FaLocationArrow />
-              <span>Address</span>
+              <h5 className={styles.subtitle}>Address</h5>
             </div>
             <p style={{ marginTop: '1rem' }}>{data.localization}</p>
             <div className={styles.container}>
               <div className={styles.box}>
                 <FaClock />
-                <p>Time</p>
+                <h5 className={styles.subtitle}>Time</h5>
               </div>
             </div>
             <p style={{ marginTop: '1rem' }}>

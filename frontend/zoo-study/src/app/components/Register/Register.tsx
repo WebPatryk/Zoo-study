@@ -1,4 +1,4 @@
-'use client'
+'use client';
 import type { NextPage } from 'next';
 import personWithDog from '@/app/assets/images/person-with-dog.svg';
 import Image from 'next/image';
@@ -9,6 +9,7 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { useState } from 'react';
 import { ErrorMessage } from '@hookform/error-message';
 import { FaRegEye, FaRegEyeSlash } from 'react-icons/fa';
+import { toast } from 'react-toastify';
 
 type Inputs = {
   name: string;
@@ -24,8 +25,78 @@ const Register: NextPage = () => {
     watch,
     formState: { errors }
   } = useForm<Inputs>();
-  const onSubmit: SubmitHandler<Inputs> = data => {
+  const onSubmit: SubmitHandler<Inputs> = async (data: any) => {
     console.log(data);
+
+    // app-user
+    // {
+    //   "username": "patlekki",
+    //     "email": "patlekki@gmail.com",
+    //     "password": "123",
+    //     "country": "Poland",
+    //     "phone": "123123123",
+    //     "zone": "A",
+    //     "role": "employee",
+    //     "avatar": "#",
+    //     "daysOff": {
+    //   "paidLeave": 12,
+    //       "vaccationLeave": 2,
+    //       "compoffLeave": 4,
+    //       "upload": 10
+    // },
+    //   "calendarEvents": [
+    //   {
+    //     "id": "1",
+    //     "title": "One day off",
+    //     "start": "2023-11-07",
+    //     "end": "2023-11-10"
+    //   }
+    // ]
+    // }
+    await handleCreateUser(data);
+    await handleCreateAppUser(data);
+  };
+
+  const handleCreateAppUser = async data => {
+    try {
+      const response = await fetch('http://localhost:3001/app-users', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ username, password })
+      });
+      const responseData = await response.json();
+      console.log(responseData);
+      toast.success('Data are correct', {
+        position: 'bottom-right',
+        autoClose: 5000
+      });
+    } catch (error) {
+      toast.error('Error!');
+      console.error('Login failed', error);
+    }
+  };
+
+  const handleCreateUser = async data => {
+    try {
+      const response = await fetch('http://localhost:3001/app-users', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ username, password })
+      });
+      const responseData = await response.json();
+      console.log(responseData);
+      toast.success('Data are correct', {
+        position: 'bottom-right',
+        autoClose: 5000
+      });
+    } catch (error) {
+      toast.error('Error!');
+      console.error('Login failed', error);
+    }
   };
 
   const [passwordShown, setPasswordShown] = useState<boolean>(false);

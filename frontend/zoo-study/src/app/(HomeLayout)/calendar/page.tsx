@@ -11,6 +11,7 @@ import { ErrorMessage } from '@hookform/error-message';
 import { FaRegEye, FaRegEyeSlash } from 'react-icons/fa';
 import Link from 'next/link';
 import { MdOutlineSecurityUpdate } from 'react-icons/md';
+import { toast } from 'react-toastify';
 
 export default function Index() {
   const [resData, setResData] = useState([]); // Use state to store your data
@@ -63,6 +64,10 @@ export default function Index() {
         const values = await res.json();
         setEvents([...events, values]);
         close();
+        toast.success('Event added successfully', {
+          position: 'bottom-right',
+          autoClose: 5000
+        });
 
         console.log(values);
         console.log('Event added successfully');

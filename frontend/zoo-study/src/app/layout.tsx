@@ -1,4 +1,3 @@
-
 // import { NextIntlClientProvider } from 'next-intl';
 // import { notFound } from 'next/navigation';
 // import Footer from "@/app/components/Footer/Footer";
@@ -53,31 +52,13 @@
 //   );
 // }
 
-
-import {NextIntlClientProvider} from 'next-intl';
-import {notFound} from 'next/navigation';
-import styles from "@/app/components/layout/Layout.module.scss";
-import Navbar from "@/app/components/Navbar/Navbar";
-import Header from "@/app/components/Header/Header";
-import Footer from "@/app/components/Footer/Footer";
-
-export function generateStaticParams() {
-    return [{locale: 'en'}, {locale: 'de'}];
-}
-
-export default async function LocaleLayout({children, params: {locale}}) {
-    let messages;
-    try {
-        messages = (await import(`../../../messages/${locale}.json`)).default;
-    } catch (error) {
-        notFound();
-    }
-
-    return (
-        <div>
-            {children}
-        </div>
-    );
+import '@/../styles/global.css';
+export default async function LocaleLayout({ children }) {
+  return (
+    <html>
+      <body suppressHydrationWarning={true}>{children}</body>
+    </html>
+  );
 }
 
 // <div {...props}>

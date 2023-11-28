@@ -10,3 +10,29 @@
 
 
 
+.feedTicket{
+  display: flex;
+  align-items: center;
+  margin-top: 2rem;
+  margin-right: 3rem;
+  div{
+    display: flex;
+    align-items: center;
+  }
+  svg:first-child{
+    color:#0062E1;
+    margin-right: 1rem;
+    font-size: 2rem;
+  }
+  svg:nth-child(2){
+    margin-left: 1rem;
+    font-size: 2rem;
+  }
+  span{
+    display: block;
+    font-size: .7rem;
+    text-transform: uppercase;
+    font-weight: 600;
+    color: $gray-color;
+  }
+}

@@ -11,6 +11,7 @@ import { FaPlugCircleBolt } from 'react-icons/fa6';
 import Modal, { useModal } from '@/app/hooks/modal/useModal';
 import QRCode from 'react-qr-code';
 import { json } from 'stream/consumers';
+import { toast } from 'react-toastify';
 
 type Inputs = {
   firstName: string;
@@ -124,10 +125,12 @@ const Index = () => {
     if (!isNaN(totalPrice as number)) {
       console.log('Total Price:', totalPrice);
       await generateTicket(ticketData);
-
       setPrice(totalPrice as number);
-
       open();
+      toast.success('Ticket generated successfully', {
+        position: 'bottom-right',
+        autoClose: 5000
+      });
     }
   };
 
