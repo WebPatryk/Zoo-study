@@ -11,11 +11,15 @@ const Index = () => {
   const [newData, setNewData] = useState(1);
 
   const fetchUserData = async () => {
+    //localhost:3001/app-users/details/test@gmail.com
+    const email = localStorage.getItem('email');
     try {
+      // 655561bf5fe23bfc08460153
       const response = await fetch(
-        'http://localhost:3001/app-users/655561bf5fe23bfc08460153'
+        `http://localhost:3001/app-users/details/${email}`
       );
       const userData = await response.json();
+      await localStorage.setItem('app-user-id', userData._id);
       setProfileData(userData);
     } catch (error) {
       console.error('Error fetching user data:', error);

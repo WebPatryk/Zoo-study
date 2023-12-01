@@ -64,8 +64,10 @@ const DaysOff = ({ profileData, setNewData, newData, setProfileData }) => {
     console.log(profileData.daysOff);
 
     const nameMapping = {
-      paidLeave: 'availablePaildLeave',
-      vaccationLeave: 'availableVaccationLeave'
+      paidLeave: 'availablePaidLeave',
+      vaccationLeave: 'availableVaccationLeave',
+      compoffLeave: 'availableCompoffLeave',
+      upload: 'availableUpload'
     };
 
     if (nameMapping.hasOwnProperty(data.vacation)) {
@@ -81,23 +83,23 @@ const DaysOff = ({ profileData, setNewData, newData, setProfileData }) => {
       daysOff: {
         ...profileData.daysOff,
         [data.vacation]: differenceInDays,
-        availableVaccationLeave:
+        [nameMapping[data.vacation]]:
           profileData.daysOff[availableName] - differenceInDays
+        // availableVaccationLeave:
+        //   profileData.daysOff[availableName] - differenceInDays
       }
     };
     console.log(date_values);
+    const id = localStorage.getItem('app-user-id');
 
     try {
-      const res = await fetch(
-        'http://localhost:3001/app-users/655561bf5fe23bfc08460153',
-        {
-          method: 'PATCH',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(date_values)
-        }
-      );
+      const res = await fetch(`http://localhost:3001/app-users/${id}`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(date_values)
+      });
       const values = await res.json();
       setProfileData(values);
       setNewData(crypto.randomUUID());
@@ -122,10 +124,10 @@ const DaysOff = ({ profileData, setNewData, newData, setProfileData }) => {
       end: data.end_date
     };
     console.log(date_values);
-
+    const id = localStorage.getItem('app-user-id');
     try {
       const res = await fetch(
-        'http://localhost:3001/app-users/655561bf5fe23bfc08460153/add-event',
+        `http://localhost:3001/app-users/${id}/add-event`,
         {
           method: 'POST',
           headers: {
@@ -172,7 +174,7 @@ const DaysOff = ({ profileData, setNewData, newData, setProfileData }) => {
               <p>Paid Leave</p>
             </div>
 
-            <h4>{profileData.daysOff.availablePaidLeave}/12</h4>
+            <h4>{profileData.daysOff?.availablePaidLeave}/12</h4>
             <span>Currently available</span>
           </div>
           <div className={styles.box}>
@@ -181,7 +183,7 @@ const DaysOff = ({ profileData, setNewData, newData, setProfileData }) => {
               <p>Vaccation Leave</p>
             </div>
 
-            <h4>{profileData.daysOff.availableVaccationLeave}/12</h4>
+            <h4>{profileData.daysOff?.availableVaccationLeave}/12</h4>
             <span>Currently available</span>
           </div>
           <div className={styles.box}>
@@ -190,7 +192,7 @@ const DaysOff = ({ profileData, setNewData, newData, setProfileData }) => {
               <p>Comp-Off Leave</p>
             </div>
 
-            <h4>{profileData.daysOff.availableCompoffLeave}/12</h4>
+            <h4>{profileData.daysOff?.availableCompoffLeave}/12</h4>
             <span>Currently available</span>
           </div>
           <div className={styles.box}>
@@ -199,7 +201,7 @@ const DaysOff = ({ profileData, setNewData, newData, setProfileData }) => {
               <p>Upload Leave</p>
             </div>
 
-            <h4>{profileData.daysOff.availableUpload}/12</h4>
+            <h4>{profileData.daysOff?.availableUpload}/12</h4>
             <span>Currently available</span>
           </div>
         </div>

@@ -43,4 +43,8 @@ export class AppUsersController {
   async addEvent(@Param('userId') userId: string, @Body() newEvent: any) {
     return this.appUsersService.addEventToUser(userId, newEvent);
   }
+  @Get('details/:email')
+  findOneByEmail(@Param('email') email: string) {
+    return this.appUsersService.findOneByEmail(email);
+  }
 }

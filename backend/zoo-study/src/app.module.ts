@@ -4,16 +4,19 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { EventsModule } from './events/events.module';
 import { MongooseModule } from '@nestjs/mongoose';
-import { AuthModule } from './auth/auth.module';
 import { VisitorsModule } from './visitors/visitors.module';
 import { TicketModule } from './ticket/ticket.module';
 import { UsersModule } from 'src/users/users.module';
 import { AppUsersController } from './app-users/app-users.controller';
 import { AppUsersModule } from 'src/app-users/app-users.module';
+import { AuthModule } from 'src/auth/auth.module';
 
 @Module({
   imports: [
-    ConfigModule.forRoot(),
+    ConfigModule.forRoot({
+      envFilePath: '.env',
+      isGlobal: true,
+    }),
     MongooseModule.forRoot(process.env.MONGODB_URI),
     EventsModule,
     AuthModule,

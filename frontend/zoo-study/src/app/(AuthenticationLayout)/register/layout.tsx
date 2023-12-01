@@ -58,7 +58,7 @@ import styles from '@/app/components/layout/Layout.module.scss';
 import Navbar from '@/app/components/Navbar/Navbar';
 import Header from '@/app/components/Header/Header';
 import Footer from '@/app/components/Footer/Footer';
-
+import 'react-toastify/dist/ReactToastify.css';
 export function generateStaticParams() {
   return [{ locale: 'en' }, { locale: 'de' }];
 }

@@ -55,4 +55,7 @@ export class AppUsersService {
       throw error;
     }
   }
+  async findOneByEmail(email: string) {
+    return this.appUsersDocumentModel.findOne({ email });
+  }
 }

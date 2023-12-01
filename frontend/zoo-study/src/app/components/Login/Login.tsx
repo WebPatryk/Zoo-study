@@ -15,7 +15,7 @@ import { useRouter } from 'next/navigation';
 import { useAuth } from '@/app/context/AuthContext';
 
 type Inputs = {
-  username: string;
+  email: string;
   password: string;
 };
 
@@ -29,7 +29,7 @@ const Login: NextPage = () => {
   const router = useRouter();
 
   const onSubmit: SubmitHandler<Inputs> = (data: Inputs) => {
-    const { username, password } = data;
+    const { email, password } = data;
 
     const loginUser = async () => {
       try {
@@ -38,11 +38,11 @@ const Login: NextPage = () => {
           headers: {
             'Content-Type': 'application/json'
           },
-          body: JSON.stringify({ username, password })
+          body: JSON.stringify({ email, password })
         });
         const responseData = await response.json();
         console.log(responseData);
-        if (responseData.access_token) {
+        if (responseData.token) {
           toast.success('Data are correct', {
             position: 'bottom-right',
             autoClose: 5000
@@ -52,8 +52,9 @@ const Login: NextPage = () => {
               'access_token',
               responseData.access_token
             );
+            await localStorage.setItem('email', email);
             await router.push('/');
-          }, 2000);
+          }, 1000);
         } else {
           toast.error('Passed credentials are not correct :(', {
             position: 'bottom-right'
@@ -136,23 +137,27 @@ const Login: NextPage = () => {
         >
           <input
             type="text"
-            placeholder="Username"
+            placeholder="Email"
             className={styles.input}
-            {...register('username', {
-              required: 'Username is required',
+            {...register('email', {
+              required: 'Email is required',
+              pattern: {
+                value: /^\S+@\S+\.\S+$/,
+                message: 'Email is not valid'
+              },
               minLength: {
-                value: 3,
+                value: 6,
                 message: 'Username is too short'
               },
               maxLength: {
                 value: 40,
-                message: 'Username is too long'
+                message: 'Email is too long'
               }
             })}
           />
           <ErrorMessage
             errors={errors}
-            name="username"
+            name="email"
             as="p"
             className={styles.error}
           />

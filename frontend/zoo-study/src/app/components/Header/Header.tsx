@@ -15,6 +15,7 @@ import { usePathname, useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useCookies } from 'react-cookie';
+import { toast } from 'react-toastify';
 
 const Header: NextPage = () => {
   const { locale, push } = useRouter();
@@ -25,6 +26,7 @@ const Header: NextPage = () => {
   const [language, setLanguage] = useState<string>(locale);
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [cookies, setCookie, removeCookie] = useCookies(['OutsiteJWT']);
+  const [user, setUser] = useState(null);
   const changeLanguage = (e: any) => {
     const lang = e.target.value;
     console.log(lang);
@@ -75,8 +77,37 @@ const Header: NextPage = () => {
   //   }
   // };
   console.log(new URL(window.location.href).origin);
+
+  useEffect(() => {
+    const getUserProfile = async () => {
+      const email = localStorage.getItem('email');
+
+      try {
+        const response = await fetch(
+          `http://localhost:3001/auth/user/${email}`
+        );
+        const responseData = await response.json();
+        console.log(responseData);
+        if (responseData) {
+          console.log(responseData);
+          setUser(responseData);
+        } else {
+          toast.error('Passed credentials are not correct :(', {
+            position: 'bottom-right'
+          });
+        }
+        // Store the token in your chosen storage mechanism (cookie, local storage, etc.)
+      } catch (error) {
+        toast.error('Error!');
+        console.error('Login failed', error);
+      }
+    };
+    getUserProfile();
+  }, []);
+
   const logout = async () => {
     await localStorage.removeItem('access_token');
+    await localStorage.removeItem('email');
     await push('/login');
   };
   return (
@@ -84,7 +115,7 @@ const Header: NextPage = () => {
       <div className={styles.userContainer} id="modal">
         <FaUserCircle className={styles.userLogo} />
         <p className={styles.userName} onClick={toggleOpenModal}>
-          Thomas Anders
+          {user && user.name}
         </p>
         {isOpenModal && (
           <div className={styles.userModal}>

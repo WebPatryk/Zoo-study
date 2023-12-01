@@ -10,23 +10,28 @@ import { useState } from 'react';
 import { ErrorMessage } from '@hookform/error-message';
 import { FaRegEye, FaRegEyeSlash } from 'react-icons/fa';
 import { toast } from 'react-toastify';
+import { useRouter } from 'next/navigation';
 
 type Inputs = {
   name: string;
   email: string;
   password: string;
-  pupilName: string;
 };
 
 const Register: NextPage = () => {
+  const router = useRouter();
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors }
   } = useForm<Inputs>();
   const onSubmit: SubmitHandler<Inputs> = async (data: any) => {
     console.log(data);
+    // {
+    //   "name":"Patryk",
+    //     "email":"patryk@gmail.com",
+    //     "password":"123456"
+    // }
 
     // app-user
     // {
@@ -58,13 +63,34 @@ const Register: NextPage = () => {
   };
 
   const handleCreateAppUser = async data => {
+    const values = {
+      username: data.name,
+      email: data.email,
+      password: data.password,
+      country: 'Poland',
+      phone: '123456789',
+      zone: 'A',
+      role: 'employee',
+      avatar: '#',
+      daysOff: {
+        paidLeave: 12,
+        availablePaidLeave: 12,
+        vaccationLeave: 12,
+        availableVaccationLeave: 12,
+        compoffLeave: 12,
+        availableCompoffLeave: 12,
+        upload: 12,
+        availableUpload: 12
+      },
+      calendarEvents: []
+    };
     try {
       const response = await fetch('http://localhost:3001/app-users', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ username, password })
+        body: JSON.stringify(values)
       });
       const responseData = await response.json();
       console.log(responseData);
@@ -80,12 +106,12 @@ const Register: NextPage = () => {
 
   const handleCreateUser = async data => {
     try {
-      const response = await fetch('http://localhost:3001/app-users', {
+      const response = await fetch('http://localhost:3001/auth/signup', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ username, password })
+        body: JSON.stringify(data)
       });
       const responseData = await response.json();
       console.log(responseData);
@@ -93,6 +119,9 @@ const Register: NextPage = () => {
         position: 'bottom-right',
         autoClose: 5000
       });
+      setTimeout(async () => {
+        await router.push('/login');
+      }, 1000);
     } catch (error) {
       toast.error('Error!');
       console.error('Login failed', error);
@@ -100,8 +129,6 @@ const Register: NextPage = () => {
   };
 
   const [passwordShown, setPasswordShown] = useState<boolean>(false);
-
-  console.log(watch('name')); // watch input value by passing the name of it
 
   const togglePassword = () => {
     setPasswordShown(!passwordShown);
@@ -154,7 +181,7 @@ const Register: NextPage = () => {
               required: 'Email is required',
               pattern: {
                 value: /^\S+@\S+\.\S+$/,
-                message: 'Email is not valie'
+                message: 'Email is not valid'
               },
               minLength: {
                 value: 6,
@@ -207,28 +234,7 @@ const Register: NextPage = () => {
             as="p"
             className={styles.error}
           />
-          <input
-            type="text"
-            placeholder="Pupil's name"
-            className={styles.input}
-            {...register('pupilName', {
-              required: "Pupil's name is required",
-              minLength: {
-                value: 6,
-                message: "Pupil's is too short"
-              },
-              maxLength: {
-                value: 40,
-                message: "Pupil's is too long"
-              }
-            })}
-          />
-          <ErrorMessage
-            errors={errors}
-            name="pupilName"
-            as="p"
-            className={styles.error}
-          />
+
           <button type="submit" className={styles.button}>
             Submit
           </button>
