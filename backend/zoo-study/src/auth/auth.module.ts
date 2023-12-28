@@ -7,9 +7,7 @@ import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
 import { JwtStrategy } from './jwt.strategy';
 import { UserSchema } from './schemas/user.schema';
-import { AppUsersService } from 'src/app-users/app-users.service';
 import { AppUsersModule } from 'src/app-users/app-users.module';
-import { AppUsersController } from 'src/app-users/app-users.controller';
 
 @Module({
   imports: [

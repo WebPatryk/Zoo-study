@@ -2,7 +2,6 @@ import { ReactNode } from 'react';
 import Navbar from '../Navbar/Navbar';
 import Header from '../Header/Header';
 import styles from './Layout.module.scss';
-import Image from 'next/image';
 import Footer from '../Footer/Footer';
 
 interface Props {

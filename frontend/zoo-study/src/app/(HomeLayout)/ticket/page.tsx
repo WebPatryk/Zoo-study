@@ -1,38 +1,24 @@
 'use client';
 
-import { Controller, SubmitHandler, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { usePathname, useRouter } from 'next/navigation';
 import { ErrorMessage } from '@hookform/error-message';
-import React, { useEffect, useRef, useState } from 'react';
-import { MdOutlineSecurityUpdate } from 'react-icons/md';
+import React, { useRef, useState } from 'react';
 import styles from './Ticket.module.scss';
 import { FaPlus, FaTrash } from 'react-icons/fa';
-import { FaPlugCircleBolt } from 'react-icons/fa6';
 import Modal, { useModal } from '@/app/hooks/modal/useModal';
 import QRCode from 'react-qr-code';
-import { json } from 'stream/consumers';
 import { toast } from 'react-toastify';
-
-type Inputs = {
-  firstName: string;
-  email: string;
-  lastName: string;
-  phone: string;
-};
 
 const Index = () => {
   const {
-    control,
     handleSubmit,
     formState: { errors },
-    setValue,
-    getValues,
     register
   } = useForm();
   const pathname = usePathname();
   const router = useRouter();
-  const { isOpen, close, data, open } = useModal();
-  const [passwordShown, setPasswordShown] = useState<boolean>(false);
+  const { isOpen, close, open } = useModal();
   const [price, setPrice] = useState<number>(0);
 
   // console.log(watch('name')); // watch input value by passing the name of it
@@ -49,7 +35,6 @@ const Index = () => {
     student: 10,
     normal: 20,
     retiree: 5
-    // Add more roles if needed
   };
 
   const [formFields, setFormFields] = useState<Inputs['rows']>([
@@ -87,7 +72,6 @@ const Index = () => {
   }
 
   const generateTicket = async ticketData => {
-    console.log(ticketData);
     try {
       const response = await fetch('http://localhost:3001/ticket', {
         method: 'POST',
@@ -104,8 +88,6 @@ const Index = () => {
   };
 
   const onSubmit = async data => {
-    console.log(formFields);
-    console.log(data);
     setMainData(data);
     const result = calculateTotalCost(formFields, pricePlan);
     const totalPrice = Object.values(result).reduce((acc, val) => acc + val, 0);
@@ -123,7 +105,6 @@ const Index = () => {
     };
 
     if (!isNaN(totalPrice as number)) {
-      console.log('Total Price:', totalPrice);
       await generateTicket(ticketData);
       setPrice(totalPrice as number);
       open();

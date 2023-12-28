@@ -26,38 +26,6 @@ const Register: NextPage = () => {
     formState: { errors }
   } = useForm<Inputs>();
   const onSubmit: SubmitHandler<Inputs> = async (data: any) => {
-    console.log(data);
-    // {
-    //   "name":"Patryk",
-    //     "email":"patryk@gmail.com",
-    //     "password":"123456"
-    // }
-
-    // app-user
-    // {
-    //   "username": "patlekki",
-    //     "email": "patlekki@gmail.com",
-    //     "password": "123",
-    //     "country": "Poland",
-    //     "phone": "123123123",
-    //     "zone": "A",
-    //     "role": "employee",
-    //     "avatar": "#",
-    //     "daysOff": {
-    //   "paidLeave": 12,
-    //       "vaccationLeave": 2,
-    //       "compoffLeave": 4,
-    //       "upload": 10
-    // },
-    //   "calendarEvents": [
-    //   {
-    //     "id": "1",
-    //     "title": "One day off",
-    //     "start": "2023-11-07",
-    //     "end": "2023-11-10"
-    //   }
-    // ]
-    // }
     await handleCreateUser(data);
     await handleCreateAppUser(data);
   };
@@ -93,7 +61,6 @@ const Register: NextPage = () => {
         body: JSON.stringify(values)
       });
       const responseData = await response.json();
-      console.log(responseData);
       toast.success('Data are correct', {
         position: 'bottom-right',
         autoClose: 5000
@@ -114,7 +81,6 @@ const Register: NextPage = () => {
         body: JSON.stringify(data)
       });
       const responseData = await response.json();
-      console.log(responseData);
       toast.success('Data are correct', {
         position: 'bottom-right',
         autoClose: 5000
@@ -244,12 +210,6 @@ const Register: NextPage = () => {
               <span className={styles.signUpText}>Log in</span>
             </Link>
           </p>
-
-          <hr />
-
-          <button type="submit" className={styles.facebookButton}>
-            Sign up with Facebook
-          </button>
         </form>
       </div>
     </div>

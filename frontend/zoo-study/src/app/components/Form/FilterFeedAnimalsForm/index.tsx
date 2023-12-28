@@ -5,10 +5,8 @@ import styles from './FilterFeedAnimalsForm.module.scss';
 import { useState } from 'react';
 
 const Index: NextPage = () => {
-  const [status, setStatus] = useState<string>('');
   const [sortBy, setSortBy] = useState<string>('');
 
-  const handleChangeStatus = () => {};
   const handleSortBy = () => {};
 
   return (

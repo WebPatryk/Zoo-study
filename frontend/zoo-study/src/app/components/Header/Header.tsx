@@ -2,41 +2,17 @@
 
 import type { NextPage } from 'next';
 import styles from './Header.module.scss';
-import {
-  FaCog,
-  FaRegBell,
-  FaSignOutAlt,
-  FaUser,
-  FaUserCircle
-} from 'react-icons/fa';
-// import { useRouter,usePathname } from 'next-intl/client';
-import { usePathname, useRouter } from 'next/navigation';
-
+import { FaSignOutAlt, FaUser, FaUserCircle } from 'react-icons/fa';
+import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
-import { useCookies } from 'react-cookie';
 import { toast } from 'react-toastify';
 
 const Header: NextPage = () => {
-  const { locale, push } = useRouter();
-  const pathname = usePathname();
-  // const router = useRouter();
+  const { push } = useRouter();
 
-  // const pathname = usePathname()
-  const [language, setLanguage] = useState<string>(locale);
   const [isOpenModal, setIsOpenModal] = useState(false);
-  const [cookies, setCookie, removeCookie] = useCookies(['OutsiteJWT']);
   const [user, setUser] = useState(null);
-  const changeLanguage = (e: any) => {
-    const lang = e.target.value;
-    console.log(lang);
-
-    // push(`$/{lang}`, undefined, { locale: lang });
-    push(`/${lang}`);
-
-    // router.push(pathname, { locale: lang });
-    // setLanguage(e.target.value);
-  };
 
   const toggleOpenModal = () => {
     setIsOpenModal(!isOpenModal);
@@ -59,25 +35,6 @@ const Header: NextPage = () => {
     };
   }, [isOpenModal]);
 
-  // const logout = async () => {
-  //   // cookies.remove('OutsiteJWT');
-  //   // removeCookie('OutsiteJWT');
-  //   // document.cookie =
-  //   //   'OutsiteJWT; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
-  //   // push('/login');
-  //
-  //   const response = await fetch('/api/auth/logout', {
-  //     method: 'POST'
-  //   });
-  //
-  //   const responseData = await response.json();
-  //   console.log(responseData);
-  //   if (responseData.message === 'Success!') {
-  //     await push('/login');
-  //   }
-  // };
-  console.log(new URL(window.location.href).origin);
-
   useEffect(() => {
     const getUserProfile = async () => {
       const email = localStorage.getItem('email');
@@ -87,16 +44,13 @@ const Header: NextPage = () => {
           `http://localhost:3001/auth/user/${email}`
         );
         const responseData = await response.json();
-        console.log(responseData);
         if (responseData) {
-          console.log(responseData);
           setUser(responseData);
         } else {
           toast.error('Passed credentials are not correct :(', {
             position: 'bottom-right'
           });
         }
-        // Store the token in your chosen storage mechanism (cookie, local storage, etc.)
       } catch (error) {
         toast.error('Error!');
         console.error('Login failed', error);
@@ -108,6 +62,7 @@ const Header: NextPage = () => {
   const logout = async () => {
     await localStorage.removeItem('access_token');
     await localStorage.removeItem('email');
+    await localStorage.removeItem('app-user-id');
     await push('/login');
   };
   return (
@@ -127,13 +82,6 @@ const Header: NextPage = () => {
                 <FaUser className={styles.bell} />
                 <p className={styles.a}>Profile</p>
               </Link>
-              {/*<Link*/}
-              {/*  href={pathname.substring(0, 3) + '/settings'}*/}
-              {/*  className={styles.useModalElement}*/}
-              {/*>*/}
-              {/*  <FaCog className={styles.bell} />*/}
-              {/*  <p className={styles.a}>Settings</p>*/}
-              {/*</Link>*/}
               <Link
                 href="/"
                 className={styles.useModalElement}

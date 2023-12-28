@@ -44,13 +44,10 @@ export class AppUsersService {
         throw new NotFoundException('User not found');
       }
 
-      // Assuming user exists, add the new event to the calendarEvents array
       user.calendarEvents.push(newEvent);
 
-      // Save the updated user
       return await user.save();
     } catch (error) {
-      // Handle errors appropriately
       console.error('Error adding event to user:', error);
       throw error;
     }

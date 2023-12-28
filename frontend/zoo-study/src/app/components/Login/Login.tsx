@@ -7,12 +7,11 @@ import icon from '@/app/assets/images/dog.svg';
 import Image from 'next/image';
 import styles from './Login.module.scss';
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { FaRegEye, FaRegEyeSlash } from 'react-icons/fa';
 import { ErrorMessage } from '@hookform/error-message';
 import { toast, ToastContainer } from 'react-toastify';
 import { useRouter } from 'next/navigation';
-import { useAuth } from '@/app/context/AuthContext';
 
 type Inputs = {
   email: string;
@@ -60,60 +59,15 @@ const Login: NextPage = () => {
             position: 'bottom-right'
           });
         }
-        // Store the token in your chosen storage mechanism (cookie, local storage, etc.)
       } catch (error) {
         toast.error('Error!');
         console.error('Login failed', error);
       }
     };
     loginUser();
-
-    // signIn();
-    // const { username, password } = data;
-    // const userData = { username: 'john', password: 'change' };
-    //
-    // console.log(data);
-    // const response = await fetch('/api/auth/login', {
-    //   method: 'POST',
-    //   body: JSON.stringify(data),
-    //   headers: {
-    //     'Content-Type': 'application/json'
-    //   }
-    // });
-    //
-    // const responseData = await response.json();
-    // console.log(responseData);
-    // if (responseData.message === 'Success!') {
-    //   toast.success('Welcome user', {
-    //     position: toast.POSITION.BOTTOM_RIGHT
-    //   });
-    //   await router.push('/');
-    // } else {
-    //   toast.error('Passed data are uncorrected', {
-    //     position: toast.POSITION.BOTTOM_RIGHT
-    //   });
-    // }
   };
 
-  // const getUser = async () => {
-  //   const response = await fetch('/api/auth/user');
-  //
-  //   const data = await response.json();
-  //
-  //   console.log(data);
-  // };
-  //
-  // const logout = async () => {
-  //   const response = await fetch('/api/auth/logout');
-  //
-  //   const data = await response.json();
-  //
-  //   console.log(data);
-  // };
-
   const [passwordShown, setPasswordShown] = useState<boolean>(false);
-
-  // console.log(watch('name')); // watch input value by passing the name of it
 
   const togglePassword = () => {
     setPasswordShown(!passwordShown);
@@ -170,7 +124,7 @@ const Login: NextPage = () => {
               {...register('password', {
                 required: 'Password is required',
                 minLength: {
-                  value: 3,
+                  value: 6,
                   message: 'Password is too short'
                 },
                 maxLength: {

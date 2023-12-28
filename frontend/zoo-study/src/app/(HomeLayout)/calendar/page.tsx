@@ -4,27 +4,15 @@ import React, { useEffect, useState } from 'react'; // Import React and other ne
 import LatestEvents from '@/app/components/LatestEvents/LatestEvents';
 import styles from './Calendar.module.scss';
 import Modal, { useModal } from '@/app/hooks/modal/useModal';
-import { NextPage } from 'next';
 import { FieldPath, SubmitHandler, useForm } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
 import { ErrorMessage } from '@hookform/error-message';
-import { FaRegEye, FaRegEyeSlash } from 'react-icons/fa';
-import Link from 'next/link';
-import { MdOutlineSecurityUpdate } from 'react-icons/md';
 import { toast } from 'react-toastify';
 
 export default function Index() {
-  const [resData, setResData] = useState([]); // Use state to store your data
-  const [numberOfCopies, setNumberOfCopies] = useState(0);
-  const { isOpen, close, data, open } = useModal();
+  const { isOpen, close, open } = useModal();
 
   const [passwordShown, setPasswordShown] = useState<boolean>(false);
-
-  // console.log(watch('name')); // watch input value by passing the name of it
-
-  const togglePassword = () => {
-    setPasswordShown(!passwordShown);
-  };
 
   type Inputs = {
     name: string;
@@ -37,8 +25,6 @@ export default function Index() {
     handleSubmit,
     formState: { errors }
   } = useForm<Inputs>();
-
-  const router = useRouter();
 
   const onSubmit: SubmitHandler<Inputs> = (data: Inputs) => {
     let newValueToSubmit = {};

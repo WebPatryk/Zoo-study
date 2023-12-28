@@ -1,12 +1,10 @@
 'use client';
 
 import { FaRegEye, FaRegEyeSlash } from 'react-icons/fa';
-import { FieldPath, SubmitHandler, useForm, Controller } from 'react-hook-form';
+import { FieldPath, useForm, Controller } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
-import Link from 'next/link';
 import { ErrorMessage } from '@hookform/error-message';
 import { useEffect, useState } from 'react';
-import { MdOutlineSecurityUpdate } from 'react-icons/md';
 import styles from './BasicProfile.module.scss';
 
 type Inputs = {
@@ -24,23 +22,16 @@ const BasicProfile = ({ profileData }) => {
   const {
     register,
     handleSubmit,
-    watch,
     control,
     formState: { errors },
     setValue
   } = useForm<Inputs>();
 
-  const router = useRouter();
   const [passwordShown, setPasswordShown] = useState<boolean>(false);
   const [file, setFile] = useState<string | Blob>('');
-  // console.log(watch('name')); // watch input value by passing the name of it
 
   const togglePassword = () => {
     setPasswordShown(!passwordShown);
-  };
-
-  const handleImageChange = e => {
-    setFile(e.target.files[0]);
   };
 
   useEffect(() => {
@@ -58,39 +49,14 @@ const BasicProfile = ({ profileData }) => {
   }, [profileData]);
 
   const onSubmit = async (data: any) => {
-    // const formData = new FormData();
-    // formData.append('file', file);
-
-    //upload image
-    // await uploadAvatar();
-
-    //upload rest data
-
-    console.log(data);
     await uploadUserInfo(data);
   };
 
-  const uploadAvatar = async () => {
-    try {
-      const res = await fetch('http://localhost:3001/uploadddddddddddd', {
-        headers: {
-          'Content-Type': 'multipart/form-data'
-        }
-      });
-      const data = await res.json();
-      console.log(data);
-      console.log('File uploaded successfully');
-    } catch (error) {
-      console.error('Error uploading file:', error);
-    }
-  };
   const uploadUserInfo = async data => {
     if (!data) {
       console.error('Error: Some necessary data are missing in data');
       return;
     }
-    // const userData = { ...data, role: data.role[0] };
-    // console.log(userData);
 
     try {
       const res = await fetch(

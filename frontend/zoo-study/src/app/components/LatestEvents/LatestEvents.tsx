@@ -2,14 +2,11 @@
 
 import styles from './LatestEvents.module.scss';
 import Link from 'next/link';
-import Event from '@/app/components/Event/Event';
 import Calendar from '@/app/assets/icons/calendar.svg';
 import Time from '@/app/assets/icons/time.svg';
-import Paw from '@/app/assets/icons/paw.svg';
 import Image from 'next/image';
 import { FaTrash } from 'react-icons/fa';
 import Modal, { useModal } from '@/app/hooks/modal/useModal';
-import QRCode from 'react-qr-code';
 import React from 'react';
 
 interface EventInterface {
@@ -19,6 +16,8 @@ interface EventInterface {
   starts_at: Date;
   image: string;
   localization: string;
+  events: any;
+  setEvents: any;
 }
 
 const LatestEvents = ({
@@ -28,16 +27,34 @@ const LatestEvents = ({
   starts_at,
   events,
   setEvents
-}: {
-  title: string;
-}) => {
+}: EventInterface) => {
   const { isOpen, close, data, open } = useModal();
 
   console.log(_id);
+
+  const timeDifference = startTime => {
+    const targetDate = new Date(startTime);
+    const currentDate = new Date();
+
+    const timeDifferenceMillis = targetDate.getTime() - currentDate.getTime();
+
+    const daysDifference = Math.floor(
+      timeDifferenceMillis / (1000 * 60 * 60 * 24) + 1
+    );
+    return daysDifference;
+  };
+
   return (
     <div className={styles.latestEvents}>
       <h4 className={styles.time}>
-        43:21 <span>left</span>
+        {timeDifference(starts_at) < 0 ? (
+          <span>Event has passed</span>
+        ) : (
+          <div>
+            {timeDifference(starts_at)}
+            <span>days left</span>
+          </div>
+        )}
       </h4>
       <div className={styles.eventContainer}>
         <div>

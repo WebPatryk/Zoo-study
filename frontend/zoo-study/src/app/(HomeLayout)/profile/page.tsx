@@ -11,10 +11,8 @@ const Index = () => {
   const [newData, setNewData] = useState(1);
 
   const fetchUserData = async () => {
-    //localhost:3001/app-users/details/test@gmail.com
     const email = localStorage.getItem('email');
     try {
-      // 655561bf5fe23bfc08460153
       const response = await fetch(
         `http://localhost:3001/app-users/details/${email}`
       );
@@ -27,10 +25,8 @@ const Index = () => {
   };
 
   useEffect(() => {
-    // Fetch user data when the component mounts
     fetchUserData();
-  }, []); // Empty dependency array ensures that it runs only once when the component mounts
-  // }, [profileData[0], profileData.length, page, newData, profileData]); // Empty dependency array ensures that it runs only once when the component mounts
+  }, []);
 
   const renderComponent = useCallback(() => {
     switch (page) {
@@ -50,13 +46,7 @@ const Index = () => {
       default:
         return null;
     }
-  }, [
-    profileData.length,
-    page,
-    newData,
-    profileData[0]
-    // Object.values(profileData.map(item => item.daysOff))
-  ]);
+  }, [profileData.length, page, newData, profileData[0]]);
 
   return (
     <div className={styles.profile} style={{ marginLeft: 30 }}>

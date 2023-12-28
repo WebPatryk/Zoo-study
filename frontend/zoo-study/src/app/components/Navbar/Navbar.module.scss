@@ -46,7 +46,6 @@
     .contactImage {
       position: absolute;
       top: -5rem;
-
     }
   }
   .button {
@@ -121,22 +120,20 @@
   left: 0;
   right: 0;
   z-index: -1;
-  background-size:cover;
-  background-image: url("../../../../public/navbar-shape.svg");
+  background-size: cover;
+  background-image: url('../../../../public/navbar-shape.svg');
   background-repeat: no-repeat;
   width: 100%;
-  height:115px;
+  height: 115px;
 }
-
 
 .listElement.selected {
   background: red;
-
 }
-.link{
+.link {
   display: flex;
   align-items: center;
-  padding:10px 15px;
+  padding: 10px 15px;
 
   p {
     font-weight: 500;

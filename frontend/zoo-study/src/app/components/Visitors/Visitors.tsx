@@ -2,7 +2,6 @@
 import type { NextPage } from 'next';
 import styles from './Visitors.module.scss';
 import { useState } from 'react';
-
 import { Chart as ChartJS, registerables } from 'chart.js';
 import { Bar } from 'react-chartjs-2';
 ChartJS.register(...registerables);

@@ -6,7 +6,7 @@ import Facebook from '@/app/assets/icons/facebook.png';
 import Instagram from '@/app/assets/icons/instagram.png';
 import Twitter from '@/app/assets/icons/twitter.png';
 
-const Footer: FC = ({ ...event }) => {
+const Footer: FC = () => {
   return (
     <footer className={styles.footer}>
       <section className={styles.row}>

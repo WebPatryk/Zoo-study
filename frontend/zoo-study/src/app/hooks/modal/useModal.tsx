@@ -1,7 +1,5 @@
 'use client';
 
-// import ActionButton from 'components/Buttons/ActionButton';
-// import { CardHeader } from 'components/Content/Card';
 import React, { MouseEventHandler, useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import styles from './Modal.module.scss';
@@ -26,12 +24,6 @@ interface Args {
   className?: string;
 }
 
-type EffectCallback = () => void | Destructor;
-
-declare const UNDEFINED_VOID_ONLY: unique symbol;
-
-type Destructor = () => void | { [UNDEFINED_VOID_ONLY]: never };
-
 const Backdrop = ({ children, onClick }: any) => {
   return (
     <motion.div
@@ -46,16 +38,7 @@ const Backdrop = ({ children, onClick }: any) => {
   );
 };
 
-export default function Modal({
-  children,
-  size,
-  title,
-  buttons,
-  isOpen,
-  className
-}: Args) {
-  const { t } = useTranslation('common');
-
+export default function Modal({ children, title, buttons, isOpen }: Args) {
   const dropIn = {
     hidden: {
       y: '-100vh',
@@ -103,11 +86,6 @@ export default function Modal({
             <div className={styles.content}>
               {children}
 
-              {/*<div>*/}
-              {/*  <button onClick={() => props.modal.close()}>Cancel</button>*/}
-
-              {/*  <button onClick={handleSave}>Save</button>*/}
-              {/*</div>*/}
               <div>
                 {buttons && (
                   <div
@@ -118,11 +96,6 @@ export default function Modal({
                     }}
                   >
                     {buttons.close && buttons.close.showOnBottom && (
-                      // <ActionButton
-                      //   text={buttons.close.label ?? t('cancel')}
-                      //   icon={buttons.close.icon ?? 'fas fa-chevron-circle-left'}
-                      //   onClick={buttons.close.onClick}
-                      // />
                       <button
                         onClick={buttons.close.onClick}
                         style={{
@@ -140,11 +113,6 @@ export default function Modal({
                       </button>
                     )}
                     {buttons.confirm && (
-                      // <ActionButton
-                      //   text={buttons.confirm.label ?? t('save')}
-                      //   icon={buttons.confirm.icon ?? 'fas fa-check-circle'}
-                      //   onClick={buttons.confirm.onClick}
-                      // />
                       <button
                         onClick={buttons.confirm.onClick}
                         style={{
@@ -168,25 +136,6 @@ export default function Modal({
           </div>
         </AnimatePresence>
       </motion.div>
-      {/* <AnimatePresence
-        initial={false}
-        mode="wait"
-        // exitBeforeEnter={true}
-        onExitComplete={() => null}
-      >
-        {isOpen && (
-          <Modal
-            buttons={{
-              close: {
-                label: 'asdsd',
-                onClick() {
-                  close();
-                }
-              }
-            }}
-          />
-        )}
-      </AnimatePresence> */}
     </Backdrop>
   );
 }

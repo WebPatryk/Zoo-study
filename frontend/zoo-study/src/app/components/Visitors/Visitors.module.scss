@@ -1,17 +1,16 @@
-.wrapper{
+.wrapper {
   flex: 1;
 
-
-  .title{
+  .title {
     color: $tertiary-color;
     font-size: 1.4rem;
     margin-top: 4rem;
     margin-bottom: 4rem;
   }
-.chart{
-  display: flex;
-  max-width: 100%;
-  min-width: 400px;
-  margin-right: 5rem;
-}
+  .chart {
+    display: flex;
+    max-width: 100%;
+    min-width: 400px;
+    margin-right: 5rem;
+  }
 }

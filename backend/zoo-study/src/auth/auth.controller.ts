@@ -2,14 +2,10 @@ import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { LoginDto } from './dto/login.dto';
 import { SignUpDto } from './dto/signup.dto';
-import { AppUsersService } from 'src/app-users/app-users.service';
 
 @Controller('auth')
 export class AuthController {
-  constructor(
-    private authService: AuthService,
-    private appUserService: AppUsersService,
-  ) {}
+  constructor(private authService: AuthService) {}
 
   @Post('/signup')
   signUp(@Body() signUpDto: SignUpDto): Promise<{ token: string }> {
@@ -25,9 +21,4 @@ export class AuthController {
   getUserProfile(@Param('email') email: string) {
     return this.authService.findOne(email);
   }
-
-  // @Get('/user/details/:email')
-  // getUserProfileDetails(@Param('email') email: string) {
-  //   return this.appUserService.findOneByEmail(email);
-  // }
 }

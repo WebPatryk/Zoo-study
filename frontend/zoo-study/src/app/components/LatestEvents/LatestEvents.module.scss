@@ -39,7 +39,7 @@
       background-size: cover;
     }
   }
-  .avatar{
+  .avatar {
     object-fit: cover;
   }
   .information {
@@ -78,15 +78,15 @@
     justify-content: space-between;
     margin-top: 2rem;
   }
-  .link{
+  .link {
     color: $fifth-color;
     font-weight: 600;
   }
-  .removeButton{
+  .removeButton {
     border: none;
     cursor: pointer;
   }
-  .removeIcon{
+  .removeIcon {
     font-size: 1.2rem;
     color: $red-color;
   }

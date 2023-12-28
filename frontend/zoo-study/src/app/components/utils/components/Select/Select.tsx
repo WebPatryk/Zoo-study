@@ -1,8 +1,6 @@
 import styles from './Select.module.scss';
 import { CSSProperties, useState } from 'react';
-import classNames from 'classnames';
-import { FaArrowDown, FaSearch, FaTimes } from 'react-icons/fa';
-import it from 'node:test';
+import { FaSearch, FaTimes } from 'react-icons/fa';
 
 interface Props {
   style?: CSSProperties;
@@ -42,9 +40,6 @@ const Select = ({
     if (item) {
       setAllValues(allValues.filter(a => a.label !== item.label));
     } else {
-      // type === 'multiple'
-      //   ? setValuee([...valuee, element])
-      //   : setValuee([element]);
       setValue('lastName', [
         ...getValues('lastName'),
         { label: element.label, select: element.select }

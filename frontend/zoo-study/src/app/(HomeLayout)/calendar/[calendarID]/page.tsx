@@ -1,9 +1,9 @@
 'use client';
 
 import styles from './CalendarId.module.scss';
-import { FaClock, FaLocationArrow, FaTimes } from 'react-icons/fa';
+import { FaClock, FaLocationArrow } from 'react-icons/fa';
 import { useEffect, useState } from 'react';
-import { useParams, useRouter, useSearchParams } from 'next/navigation';
+import { useParams } from 'next/navigation';
 export default function Index({}) {
   const router = useParams();
 
@@ -26,8 +26,6 @@ export default function Index({}) {
     }
     fetchEvent();
   }, [router.calendarID]);
-  // const data = await getDataByEventId(eventId);
-  // 637e250c9a5d0e2fd784c42a
   return (
     <section className={styles.eventId}>
       <div>
@@ -68,24 +66,3 @@ export default function Index({}) {
     </section>
   );
 }
-// async function getDataByEventId(id: string): Promise<any> {
-//   // const id = '637e250c9a5d0e2fd784c42a';
-//   const res = await fetch(`http://localhost:3001/events/${id}`);
-//   const event = res.json();
-//
-//   if (!res.ok) {
-//     throw new Error('Failed to fetch data');
-//   }
-//
-//   return event;
-// }
-// export const generateStaticParams = async () => {
-//   const data = await fetch('http://localhost:3001/events');
-//   const events = await data.json();
-//
-//   return events.map(event => ({
-//     params: {
-//       eventId: event._id.toString()
-//     }
-//   }));
-// };

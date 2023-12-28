@@ -1,35 +1,11 @@
 'use client';
 
-import { Controller, SubmitHandler, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { usePathname, useRouter } from 'next/navigation';
-import { ErrorMessage } from '@hookform/error-message';
-import React, { useEffect, useRef, useState } from 'react';
-import { MdOutlineSecurityUpdate } from 'react-icons/md';
+import React, { useEffect, useState } from 'react';
 import styles from '../Ticket.module.scss';
-import { FaPlus, FaTrash } from 'react-icons/fa';
-import { FaPlugCircleBolt } from 'react-icons/fa6';
-import Modal, { useModal } from '@/app/hooks/modal/useModal';
-import QRCode from 'react-qr-code';
-import { json } from 'stream/consumers';
-type Inputs = {
-  firstName: string;
-  email: string;
-  lastName: string;
-  phone: string;
-};
 
 const Index = () => {
-  const {
-    control,
-    handleSubmit,
-    formState: { errors },
-    setValue,
-    getValues,
-    register
-  } = useForm();
-  const pathname = usePathname();
-  const router = useRouter();
-  const [passwordShown, setPasswordShown] = useState<boolean>(false);
   const [data, setData] = useState([]);
 
   useEffect(() => {

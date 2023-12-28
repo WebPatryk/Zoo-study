@@ -18,10 +18,8 @@ const DaysOff = ({ profileData, setNewData, newData, setProfileData }) => {
   const {
     register,
     handleSubmit,
-    watch,
     control,
-    formState: { errors },
-    setValue
+    formState: { errors }
   } = useForm();
 
   const { isOpen, close, data, open } = useModal();
@@ -30,15 +28,12 @@ const DaysOff = ({ profileData, setNewData, newData, setProfileData }) => {
   useEffect(() => {
     if (formData) {
       console.log(profileData);
-      // Run any logic or side effect you want when form data changes
       console.log('Form data changed:', formData);
       createUserDaysOff(formData);
     }
   }, [formData]);
 
   const onSubmit = async (data: any) => {
-    console.log(data);
-    // await createUserDaysOff(data);
     setFormData(data);
 
     if (data) {
@@ -61,8 +56,6 @@ const DaysOff = ({ profileData, setNewData, newData, setProfileData }) => {
     const differenceInDays =
       differenceInMilliseconds / (1000 * 60 * 60 * 24) + 1;
 
-    console.log(profileData.daysOff);
-
     const nameMapping = {
       paidLeave: 'availablePaidLeave',
       vaccationLeave: 'availableVaccationLeave',
@@ -72,24 +65,17 @@ const DaysOff = ({ profileData, setNewData, newData, setProfileData }) => {
 
     if (nameMapping.hasOwnProperty(data.vacation)) {
       const name = nameMapping[data.vacation];
-      console.log(name);
       availableName = name;
     }
-    console.log('aAAAAAAAAAAAAA');
-    console.log(profileData.daysOff[data.vacation]);
-    console.log(profileData.daysOff[availableName]);
-    console.log(differenceInDays);
+
     const date_values = {
       daysOff: {
         ...profileData.daysOff,
         [data.vacation]: differenceInDays,
         [nameMapping[data.vacation]]:
           profileData.daysOff[availableName] - differenceInDays
-        // availableVaccationLeave:
-        //   profileData.daysOff[availableName] - differenceInDays
       }
     };
-    console.log(date_values);
     const id = localStorage.getItem('app-user-id');
 
     try {
@@ -105,7 +91,6 @@ const DaysOff = ({ profileData, setNewData, newData, setProfileData }) => {
       setNewData(crypto.randomUUID());
       setFormData(null);
 
-      console.log(values);
       console.log('User data uploaded successfully');
     } catch (error) {
       console.error('Error uploading user data:', error);
@@ -123,7 +108,6 @@ const DaysOff = ({ profileData, setNewData, newData, setProfileData }) => {
       start: data.start_date,
       end: data.end_date
     };
-    console.log(date_values);
     const id = localStorage.getItem('app-user-id');
     try {
       const res = await fetch(
@@ -149,7 +133,6 @@ const DaysOff = ({ profileData, setNewData, newData, setProfileData }) => {
   };
 
   const handleDateClick = arg => {
-    // bind with an arrow function
     alert(arg.dateStr);
   };
 
@@ -219,13 +202,6 @@ const DaysOff = ({ profileData, setNewData, newData, setProfileData }) => {
               text: 'Add vacation',
               click: () => {
                 open();
-                // setEvents([
-                //   ...events,
-                //   {
-                //     title: 'event',
-                //     date: new Date().toISOString().substr(0, 10)
-                //   }
-                // ]);
               }
             }
           }}

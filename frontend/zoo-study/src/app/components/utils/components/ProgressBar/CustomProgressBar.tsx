@@ -12,7 +12,7 @@ interface PropsData {
 }
 
 const CustomProgressBar = (props: PropsData) => {
-  const { title, in_progress } = props.progress;
+  const { in_progress } = props.progress;
 
   console.log(props);
 
@@ -30,24 +30,14 @@ const CustomProgressBar = (props: PropsData) => {
       <div className={styles.progressInfo}>
         <h3 className={styles.progress}>{in_progress} to complete</h3>
       </div>
-      {/*<div className={styles.progressWrapper}>*/}
-      {/*  <div className={styles.active} style={{ width: in_progress }} />*/}
-      {/*</div>*/}
-      {/*<div className={styles.progress}>*/}
-      {/*  <div className={classNames(styles.fill, styles.a)} />*/}
-      {/*</div>*/}
+
       <div>
-        <div
-          // className="meter animate"
-          className={classNames(styles.meter, styles.animate)}
-        >
+        <div className={classNames(styles.meter, styles.animate)}>
           <span style={{ width: in_progress }}>
             <span></span>
           </span>
         </div>
       </div>
-      {/*<p>{progress.title}</p>*/}
-      {/*<p>{progress.in_progress}</p>*/}
     </div>
   );
 };
