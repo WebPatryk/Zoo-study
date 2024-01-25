@@ -4,7 +4,7 @@ import styles from '@/app/(HomeLayout)/Layout.module.scss';
 import { useEffect, useState } from 'react';
 
 export default function Index() {
-  const [events, setEvemts] = useState([]);
+  const [events, setEvents] = useState([]);
 
   useEffect(() => {
     const fetchEvents = async () => {
@@ -15,7 +15,7 @@ export default function Index() {
       }
 
       const data = await res.json();
-      setEvemts(data);
+      setEvents(data);
     };
 
     fetchEvents();

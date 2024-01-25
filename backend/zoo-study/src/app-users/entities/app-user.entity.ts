@@ -2,14 +2,11 @@ export class DaysOff {
   paidLeave: number;
   availablePaidLeave: number;
 
-  vaccationLeave: number;
-  availableVaccationLeave: number;
+  vacationLeave: number;
+  availableVacationLeave: number;
 
-  compoffLeave: number;
-  availableCompoffLeave: number;
-
-  upload: number;
-  availableUpload: number;
+  compOffLeave: number;
+  availableCompOffLeave: number;
 }
 
 export class CalendarEvents {

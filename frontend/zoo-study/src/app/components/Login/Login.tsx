@@ -101,7 +101,7 @@ const Login: NextPage = () => {
               },
               minLength: {
                 value: 6,
-                message: 'Username is too short'
+                message: 'Email is too short'
               },
               maxLength: {
                 value: 40,

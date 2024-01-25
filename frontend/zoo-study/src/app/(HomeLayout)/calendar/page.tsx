@@ -145,11 +145,11 @@ export default function Index() {
               {...register('description', {
                 required: 'Description is required',
                 minLength: {
-                  value: 3,
+                  value: 10,
                   message: 'Description is too short'
                 },
                 maxLength: {
-                  value: 40,
+                  value: 120,
                   message: 'Description is too long'
                 }
               })}

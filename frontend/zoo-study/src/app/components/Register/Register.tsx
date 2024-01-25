@@ -43,12 +43,10 @@ const Register: NextPage = () => {
       daysOff: {
         paidLeave: 12,
         availablePaidLeave: 12,
-        vaccationLeave: 12,
-        availableVaccationLeave: 12,
-        compoffLeave: 12,
-        availableCompoffLeave: 12,
-        upload: 12,
-        availableUpload: 12
+        vacationLeave: 12,
+        availableVacationLeave: 12,
+        compOffLeave: 12,
+        availableCompOffLeave: 12
       },
       calendarEvents: []
     };

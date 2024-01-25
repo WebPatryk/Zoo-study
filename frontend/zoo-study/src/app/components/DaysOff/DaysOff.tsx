@@ -7,7 +7,6 @@ import interactionPlugin from '@fullcalendar/interaction'; // needed for dayClic
 import styles from './DaysOff.module.scss';
 import { BiParty } from 'react-icons/bi';
 import { HiOutlineDocumentText } from 'react-icons/hi';
-import { AiOutlineCloudUpload } from 'react-icons/ai';
 import { BsEmojiSunglasses } from 'react-icons/bs';
 import Modal, { useModal } from '@/app/hooks/modal/useModal';
 import React, { useEffect, useState } from 'react';
@@ -58,9 +57,8 @@ const DaysOff = ({ profileData, setNewData, newData, setProfileData }) => {
 
     const nameMapping = {
       paidLeave: 'availablePaidLeave',
-      vaccationLeave: 'availableVaccationLeave',
-      compoffLeave: 'availableCompoffLeave',
-      upload: 'availableUpload'
+      vacationLeave: 'availableVacationLeave',
+      compOffLeave: 'availableCompOffLeave'
     };
 
     if (nameMapping.hasOwnProperty(data.vacation)) {
@@ -166,7 +164,7 @@ const DaysOff = ({ profileData, setNewData, newData, setProfileData }) => {
               <p>Vaccation Leave</p>
             </div>
 
-            <h4>{profileData.daysOff?.availableVaccationLeave}/12</h4>
+            <h4>{profileData.daysOff?.availableVacationLeave}/12</h4>
             <span>Currently available</span>
           </div>
           <div className={styles.box}>
@@ -175,16 +173,7 @@ const DaysOff = ({ profileData, setNewData, newData, setProfileData }) => {
               <p>Comp-Off Leave</p>
             </div>
 
-            <h4>{profileData.daysOff?.availableCompoffLeave}/12</h4>
-            <span>Currently available</span>
-          </div>
-          <div className={styles.box}>
-            <div className={styles.headBox}>
-              <AiOutlineCloudUpload />
-              <p>Upload Leave</p>
-            </div>
-
-            <h4>{profileData.daysOff?.availableUpload}/12</h4>
+            <h4>{profileData.daysOff?.availableCompOffLeave}/12</h4>
             <span>Currently available</span>
           </div>
         </div>
@@ -263,8 +252,7 @@ const DaysOff = ({ profileData, setNewData, newData, setProfileData }) => {
                         <option value="">Select type of paid</option>
                         <option value="paidLeave">Paid Leave</option>
                         <option value="vaccationLeave">Vacation Leave</option>
-                        <option value="compoffLeave">Camp-off Leave</option>
-                        <option value="upload">Upload Leave</option>
+                        <option value="compOffLeave">Camp-off Leave</option>
                       </select>
                     </div>
                   )}

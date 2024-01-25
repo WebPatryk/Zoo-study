@@ -9,17 +9,13 @@ export class DaysOff {
   @Prop()
   availablePaidLeave: number;
   @Prop()
-  vaccationLeave: number;
+  vacationLeave: number;
   @Prop()
-  availableVaccationLeave: number;
+  availableVacationLeave: number;
   @Prop()
-  compoffLeave: number;
+  compOffLeave: number;
   @Prop()
-  availableCompoffLeave: number;
-  @Prop()
-  upload: number;
-  @Prop()
-  availableUpload: number;
+  availableCompOffLeave: number;
 }
 @Schema()
 export class CalendarEvents {

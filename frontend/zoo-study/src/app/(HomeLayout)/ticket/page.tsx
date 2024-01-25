@@ -71,7 +71,7 @@ const Index = () => {
     return totalCost;
   }
 
-  const generateTicket = async ticketData => {
+  const generateTicket = async (ticketData: any) => {
     try {
       const response = await fetch('http://localhost:3001/ticket', {
         method: 'POST',

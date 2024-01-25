@@ -12,7 +12,7 @@ const Visitors: NextPage = ({ visitorsData }) => {
 
     datasets: [
       {
-        label: 'Users Gained',
+        label: 'Visitors',
         data: visitorsData.map(data => data.userGain),
         backgroundColor: [
           'rgba(75,192,192,1)',
@@ -30,13 +30,16 @@ const Visitors: NextPage = ({ visitorsData }) => {
     <div className={styles.wrapper}>
       <h3 className={styles.title}>Zoo's Visitors</h3>
       <Bar
+        data-testid="chart-element"
         className={styles.chart}
         data={chartData as any}
         options={{
           plugins: {
             title: {
               display: true,
-              text: 'Users Gained between 2016-2020'
+              text: `Users Gained in ${visitorsData.map(
+                (data: any) => data.year
+              )} year`
             },
             legend: {
               display: false
